@@ -1,4 +1,5 @@
 ﻿using HappyPlate.Domain.Entities;
+using HappyPlate.Domain.ValueObjects;
 using HappyPlate.Persistence.Constants;
 
 using Microsoft.EntityFrameworkCore;
@@ -12,5 +13,9 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.ToTable(TableNames.Product);
 
         builder.HasKey(x => x.Id);
+
+        builder
+            .Property(x => x.Price)
+            .HasConversion(x => x.Amount, x => Price.Create(x));
     }
 }

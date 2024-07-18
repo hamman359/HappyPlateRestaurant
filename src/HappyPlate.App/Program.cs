@@ -1,5 +1,5 @@
 using HappyPlate.App.Components;
-using HappyPlate.App.Components.Account;
+//using HappyPlate.App.Components.Account;
 using HappyPlate.App.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -68,6 +68,6 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 // Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
+//app.MapAdditionalIdentityEndpoints();
 
 await app.RunAsync();

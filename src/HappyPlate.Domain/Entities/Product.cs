@@ -1,14 +1,17 @@
 ﻿using HappyPlate.Domain.Primatives;
+using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Domain.Entities;
 
 public sealed class Product : Entity
 {
     Product(
+        Guid id,
         string name,
         string description,
-        float price,
-        Category category)
+        Price price,
+        string category)
+        : base(id)
     {
         Name = name;
         Description = description;
@@ -26,9 +29,9 @@ public sealed class Product : Entity
 
     public string Description { get; set; }
 
-    public float Price { get; set; }
+    public Price Price { get; set; }
 
-    public Category Category { get; set; }
+    public string Category { get; set; }
 
     public DateTime CreatedOnUtc { get; set; }
 
@@ -38,9 +41,14 @@ public sealed class Product : Entity
         string name,
         string description,
         float price,
-        Category category)
+        string category)
     {
-        return new Product(name, description, price, category);
+        return new Product(
+            Guid.NewGuid(),
+            name,
+            description,
+            Price.Create(price),
+            category);
     }
 
 }
