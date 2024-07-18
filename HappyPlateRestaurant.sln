@@ -6,27 +6,28 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2FB748D8-7DED-4985-B554-C0900AF3116A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{54B76ED5-DE5A-4908-B4D9-BD4A94187C11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BC9FEDDD-3598-4280-A681-7EEF474FD61A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.UnitTests", "test\HappyPlate.UnitTests\HappyPlate.UnitTests.csproj", "{DEF14337-BEA6-44AD-A286-08FDC166C5F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.UnitTests", "test\HappyPlate.UnitTests\HappyPlate.UnitTests.csproj", "{DEF14337-BEA6-44AD-A286-08FDC166C5F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.ArchitectureTests", "test\HappyPlate.ArchitectureTests\HappyPlate.ArchitectureTests.csproj", "{4EC1AE1D-BD4C-4AC8-8DD7-72BF6A591E1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.ArchitectureTests", "test\HappyPlate.ArchitectureTests\HappyPlate.ArchitectureTests.csproj", "{4EC1AE1D-BD4C-4AC8-8DD7-72BF6A591E1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.Presentation", "src\HappyPlate.Presentation\HappyPlate.Presentation.csproj", "{C576D9DA-007E-4308-BE96-E8EFDC7F7EE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.Presentation", "src\HappyPlate.Presentation\HappyPlate.Presentation.csproj", "{C576D9DA-007E-4308-BE96-E8EFDC7F7EE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.Persistence", "src\HappyPlate.Persistence\HappyPlate.Persistence.csproj", "{E145A8AB-A978-44A4-ADF0-7F14DD2CDF33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.Persistence", "src\HappyPlate.Persistence\HappyPlate.Persistence.csproj", "{E145A8AB-A978-44A4-ADF0-7F14DD2CDF33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.Infrastructure", "src\HappyPlate.Infrastructure\HappyPlate.Infrastructure.csproj", "{8C2E2675-8725-4C71-ACC9-A411A77FBE11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.Infrastructure", "src\HappyPlate.Infrastructure\HappyPlate.Infrastructure.csproj", "{8C2E2675-8725-4C71-ACC9-A411A77FBE11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.Domain", "src\HappyPlate.Domain\HappyPlate.Domain.csproj", "{19BED3D4-01DA-4162-80C3-26F73C0B3ABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.Domain", "src\HappyPlate.Domain\HappyPlate.Domain.csproj", "{19BED3D4-01DA-4162-80C3-26F73C0B3ABE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.Application", "src\HappyPlate.Application\HappyPlate.Application.csproj", "{DE4986D8-A3FE-44E1-9E5A-216669508A70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.Application", "src\HappyPlate.Application\HappyPlate.Application.csproj", "{DE4986D8-A3FE-44E1-9E5A-216669508A70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HappyPlate.App", "src\HappyPlate.App\HappyPlate.App.csproj", "{DEB2FC1F-520E-4F97-990D-D32FC10C1FA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HappyPlate.App", "src\HappyPlate.App\HappyPlate.App.csproj", "{DEB2FC1F-520E-4F97-990D-D32FC10C1FA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
