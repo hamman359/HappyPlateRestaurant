@@ -1,4 +1,6 @@
 ﻿using HappyPlate.Application.Products.AddProduct;
+using HappyPlate.Application.Products.GetProductById;
+using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
 using HappyPlate.Presentation.Contracts.Product;
 
@@ -19,10 +21,17 @@ public sealed class ProductController : ApiController
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetProductById(
         Guid id,
-        CancellationToken cancelationToken)
+        CancellationToken cancellationToken)
     {
-        //TODO: Implement
-        return Ok();
+        var query = new GetProductByIdQuery(id);
+
+
+        Result<ProductResponse> response = await Sender.Send(query, cancellationToken);
+
+        return response.IsSuccess
+            ? Ok(response.Value)
+            : NotFound(response.Error);
+        //806990ea-ba86-4fa3-bf22-edbd95a68a33
     }
 
     [HttpPost]

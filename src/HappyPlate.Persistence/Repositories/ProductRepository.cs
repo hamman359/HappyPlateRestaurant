@@ -1,6 +1,8 @@
 ﻿using HappyPlate.Domain.Entities;
 using HappyPlate.Domain.Repositories;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace HappyPlate.Persistence.Repositories;
 
 internal sealed class ProductRepository : IProductRepository
@@ -11,6 +13,12 @@ internal sealed class ProductRepository : IProductRepository
     {
         _dbContext = dbContext;
     }
+
+
+    public async Task<Product?> GetByIdAsync(Guid productId, CancellationToken cancellationToken) =>
+        await _dbContext
+            .Set<Product>()
+            .FirstOrDefaultAsync(x => x.Id == productId, cancellationToken);
 
     public void Add(Product product) => _dbContext.Set<Product>().Add(product);
 }
