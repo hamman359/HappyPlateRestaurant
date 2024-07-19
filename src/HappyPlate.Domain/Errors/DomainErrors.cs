@@ -74,4 +74,11 @@ public static class DomainErrors
             "LastName.TooLong",
             "Last name is too long");
     }
+
+    public static class Price
+    {
+        public static readonly Error Negative = new(
+            "Price.Negative",
+            "Price is a negative amount");
+    }
 }

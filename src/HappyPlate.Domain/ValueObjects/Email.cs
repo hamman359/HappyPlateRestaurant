@@ -27,32 +27,32 @@ public sealed class Email : ValueObject
 
         //        DomainErrors.Email.InvalidFormat)));
         //V2
-        return Result.Combine(
-            Result.Ensure(
-                email,
-                e => !string.IsNullOrWhiteSpace(e),
-                DomainErrors.Email.Empty),
-            Result.Ensure(
-                email,
-                e => e.Length <= MaxLength,
-                DomainErrors.Email.TooLong),
-            Result.Ensure(
-                email,
-                e => e.Split('@').Length == 2,
-                DomainErrors.Email.InvalidFormat))
-            .Map(e => new Email(e));
-        //V1
-        //Result.Create(email)
-        //    .Ensure(
+        //return Result.Combine(
+        //    Result.Ensure(
+        //        email,
         //        e => !string.IsNullOrWhiteSpace(e),
-        //        DomainErrors.Email.Empty)
-        //    .Ensure(
+        //        DomainErrors.Email.Empty),
+        //    Result.Ensure(
+        //        email,
         //        e => e.Length <= MaxLength,
-        //        DomainErrors.Email.TooLong)
-        //    .Ensure(
+        //        DomainErrors.Email.TooLong),
+        //    Result.Ensure(
+        //        email,
         //        e => e.Split('@').Length == 2,
-        //        DomainErrors.Email.InvalidFormat)
+        //        DomainErrors.Email.InvalidFormat))
         //    .Map(e => new Email(e));
+        //V1
+        return Result.Create(email)
+            .Ensure(
+                e => !string.IsNullOrWhiteSpace(e),
+                DomainErrors.Email.Empty)
+            .Ensure(
+                e => e.Length <= MaxLength,
+                DomainErrors.Email.TooLong)
+            .Ensure(
+                e => e.Split('@').Length == 2,
+                DomainErrors.Email.InvalidFormat)
+            .Map(e => new Email(e));
     }
 
     public override IEnumerable<object> GetAtomicValues()

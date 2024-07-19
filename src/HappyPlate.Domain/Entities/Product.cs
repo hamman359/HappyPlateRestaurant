@@ -21,10 +21,6 @@ public sealed class Product : Entity
         ModifiedOnUtc = DateTime.UtcNow;
     }
 
-    Product()
-    {
-    }
-
     public string Name { get; set; }
 
     public string Description { get; set; }
@@ -40,14 +36,14 @@ public sealed class Product : Entity
     public static Product Create(
         string name,
         string description,
-        float price,
+        Price price,
         string category)
     {
         return new Product(
             Guid.NewGuid(),
             name,
             description,
-            Price.Create(price),
+            price,
             category);
     }
 

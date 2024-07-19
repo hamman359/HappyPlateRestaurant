@@ -16,6 +16,6 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
 
         builder
             .Property(x => x.Price)
-            .HasConversion(x => x.Amount, x => Price.Create(x));
+            .HasConversion(x => x.Amount, x => Price.Create(x).Value);
     }
 }

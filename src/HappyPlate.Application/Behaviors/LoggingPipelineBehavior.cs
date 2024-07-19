@@ -35,7 +35,7 @@ public class LoggingPipelineBehavior<TRequest, TResponse>
             _logger.LogError(
                 "Request failure {@RequestName}, {@Error}, {@DateTimeUtc}",
                 typeof(TRequest).Name,
-                result.Errors,
+                result.Error,
                 DateTime.UtcNow);
         }
 
