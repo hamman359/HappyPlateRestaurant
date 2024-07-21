@@ -81,4 +81,11 @@ public static class DomainErrors
             "Price.Negative",
             "Price is a negative amount");
     }
+
+    public static class MenuItem
+    {
+        public static readonly Func<Guid, Error> NotFound = id => new Error(
+            "MenuItem.NotFound",
+            $"The Menu Item with Id {id} was not found");
+    }
 }

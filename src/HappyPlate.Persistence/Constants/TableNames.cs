@@ -6,5 +6,5 @@ internal static class TableNames
 
     internal const string OutboxMessageConsumers = nameof(OutboxMessageConsumers);
 
-    internal const string Product = nameof(Product);
+    internal const string MenuItem = nameof(MenuItem);
 }

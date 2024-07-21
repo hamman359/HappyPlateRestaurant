@@ -3,16 +3,18 @@ using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Domain.Entities;
 
-public sealed class Product : Entity
+public sealed class MenuItem : Entity
 {
-    Product(
+    MenuItem(
         Guid id,
         string name,
         string description,
         Price price,
-        string category)
+        string category,
+        string image)
         : base(id)
     {
+        Image = image;
         Name = name;
         Description = description;
         Price = price;
@@ -21,30 +23,34 @@ public sealed class Product : Entity
         ModifiedOnUtc = DateTime.UtcNow;
     }
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
 
-    public string Description { get; set; }
+    public string Description { get; private set; }
 
-    public Price Price { get; set; }
+    public Price Price { get; private set; }
 
-    public string Category { get; set; }
+    public string Category { get; private set; }
+
+    public string Image { get; private set; }
 
     public DateTime CreatedOnUtc { get; set; }
 
     public DateTime? ModifiedOnUtc { get; set; }
 
-    public static Product Create(
+    public static MenuItem Create(
         string name,
         string description,
         Price price,
-        string category)
+        string category,
+        string image)
     {
-        return new Product(
+        return new MenuItem(
             Guid.NewGuid(),
             name,
             description,
             price,
-            category);
+            category,
+            image);
     }
 
 }

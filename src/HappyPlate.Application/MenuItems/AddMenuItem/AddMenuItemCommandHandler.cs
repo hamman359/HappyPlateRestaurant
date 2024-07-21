@@ -4,23 +4,23 @@ using HappyPlate.Domain.Repositories;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Domain.ValueObjects;
 
-namespace HappyPlate.Application.Products.AddProduct;
+namespace HappyPlate.Application.MenuItems.AddMenuItem;
 
-public class AddProductCommandHandler : ICommandHandler<AddProductCommand, Guid>
+public class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemCommand, Guid>
 {
-    readonly IProductRepository _productRepository;
+    readonly IMenuItemRepository _menuItemRepository;
     readonly IUnitOfWork _unitOfWork;
 
-    public AddProductCommandHandler(
-        IProductRepository productRepository,
+    public AddMenuItemCommandHandler(
+        IMenuItemRepository productRepository,
         IUnitOfWork unitOfWork)
     {
-        _productRepository = productRepository;
+        _menuItemRepository = productRepository;
         _unitOfWork = unitOfWork;
     }
 
     public async Task<Result<Guid>> Handle(
-        AddProductCommand request,
+        AddMenuItemCommand request,
         CancellationToken cancellationToken)
     {
         Result<Price> priceResult = Price.Create(request.Price);
@@ -30,13 +30,14 @@ public class AddProductCommandHandler : ICommandHandler<AddProductCommand, Guid>
             return Result.Failure<Guid>(priceResult.Error);
         }
 
-        var product = Product.Create(
+        var product = MenuItem.Create(
             request.Name,
             request.Description,
             priceResult.Value,
-            request.Category);
+            request.Category,
+            request.Image);
 
-        _productRepository.Add(product);
+        _menuItemRepository.Add(product);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -1,8 +1,8 @@
-﻿using HappyPlate.Application.Products.AddProduct;
-using HappyPlate.Application.Products.GetProductById;
+﻿using HappyPlate.Application.MenuItems.AddMenuItem;
+using HappyPlate.Application.MenuItems.GetMenuItemById;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
-using HappyPlate.Presentation.Contracts.Product;
+using HappyPlate.Presentation.Contracts.MenuItems;
 
 using MediatR;
 
@@ -10,40 +10,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HappyPlate.Presentation.Controllers;
 
-[Route("api/products")]
-public sealed class ProductController : ApiController
+[Route("api/menuitems")]
+public sealed class MenuItemController : ApiController
 {
-    public ProductController(ISender sender)
+    public MenuItemController(ISender sender)
         : base(sender)
     {
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetProductById(
+    public async Task<IActionResult> GetMenuItemById(
         Guid id,
-        CancellationToken cancellationToken)
+        CancellationToken cancelationToken)
     {
-        var query = new GetProductByIdQuery(id);
+        var query = new GetMenuItemByIdQuery(id);
 
-
-        Result<ProductResponse> response = await Sender.Send(query, cancellationToken);
+        Result<MenuItemResponse> response = await Sender.Send(query, cancelationToken);
 
         return response.IsSuccess
             ? Ok(response.Value)
             : NotFound(response.Error);
-        //806990ea-ba86-4fa3-bf22-edbd95a68a33
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddProduct(
-        [FromBody] AddProductRequest request,
+    public async Task<IActionResult> AddMenuItem(
+        [FromBody] AddMenuItemRequest request,
         CancellationToken cancelationToken)
     {
-        var command = new AddProductCommand(
+        var command = new AddMenuItemCommand(
             request.name,
             request.description,
             request.price,
-            request.category);
+            request.category,
+            request.image);
 
         var result = await Sender.Send(command, cancelationToken);
 
@@ -53,7 +52,7 @@ public sealed class ProductController : ApiController
         }
 
         return CreatedAtAction(
-            nameof(GetProductById),
+            nameof(GetMenuItemById),
             new { id = result.Value },
             result.Value);
 

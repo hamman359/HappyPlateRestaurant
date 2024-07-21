@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HappyPlate.Persistence.Configurations;
-internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
+internal sealed class MenuItemConfiguration : IEntityTypeConfiguration<MenuItem>
 {
-    public void Configure(EntityTypeBuilder<Product> builder)
+    public void Configure(EntityTypeBuilder<MenuItem> builder)
     {
-        builder.ToTable(TableNames.Product);
+        builder.ToTable(TableNames.MenuItem);
 
         builder.HasKey(x => x.Id);
 
