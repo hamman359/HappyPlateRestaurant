@@ -1,4 +1,7 @@
-﻿namespace HappyPlate.App.Configuration;
+﻿using HappyPlate.Application.Caching;
+using HappyPlate.Infrastructure.Caching;
+
+namespace HappyPlate.App.Configuration;
 
 public class CachingServiceInstaller : IServiceInstaller
 {
@@ -13,5 +16,7 @@ public class CachingServiceInstaller : IServiceInstaller
         //});
 
         services.AddMemoryCache();
+
+        services.AddSingleton<ICacheService, CacheService>();
     }
 }

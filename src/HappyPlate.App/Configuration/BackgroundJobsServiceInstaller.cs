@@ -24,7 +24,7 @@ public class BackgroundJobsServiceInstaller : IServiceInstaller
                                     schedule.WithIntervalInSeconds(100)
                                         .RepeatForever()));
 
-            configure.UseMicrosoftDependencyInjectionJobFactory();
+            //configure.UseMicrosoftDependencyInjectionJobFactory();
         });
 
         services.AddQuartzHostedService();

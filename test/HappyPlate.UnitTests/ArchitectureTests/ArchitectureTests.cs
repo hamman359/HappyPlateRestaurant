@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
 
-using FluentAssertions;
-
 using FluentValidation;
 
 using HappyPlate.App.Configuration;
 using HappyPlate.Application.Abstractions.Messaging;
+using HappyPlate.Domain.Primatives;
 using HappyPlate.Persistence.Specifications;
 
 using MediatR;
@@ -45,6 +44,54 @@ public class ArchitectureTests
             .InAssembly(assembly)
             .ShouldNot()
             .HaveDependencyOnAll(otherProjects)
+            .GetResult();
+
+        testResult.IsSuccessful.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ValueObjectClasses_Should_InheritFrom_ValueObject()
+    {
+        Assembly assembly = typeof(Domain.AssemblyReference).Assembly;
+
+        var testResult = Types
+            .InAssembly(assembly)
+            .That()
+            .ResideInNamespace($"{DomainNamespace}.ValueObjects")
+            .Should()
+            .Inherit(typeof(ValueObject))
+            .GetResult();
+
+        testResult.IsSuccessful.Should().BeTrue();
+    }
+
+    [Fact]
+    public void EntityClasses_Should_InheritFrom_Entity()
+    {
+        Assembly assembly = typeof(Domain.AssemblyReference).Assembly;
+
+        var testResult = Types
+            .InAssembly(assembly)
+            .That()
+            .ResideInNamespaceStartingWith($"{DomainNamespace}.Entities")
+            .Should()
+            .Inherit(typeof(Entity))
+            .GetResult();
+
+        testResult.IsSuccessful.Should().BeTrue();
+    }
+
+    [Fact]
+    public void DomainErrorClasses_Should_BeStatic()
+    {
+        Assembly assembly = typeof(Domain.AssemblyReference).Assembly;
+
+        var testResult = Types
+            .InAssembly(assembly)
+            .That()
+            .ResideInNamespaceStartingWith($"{DomainNamespace}.Errors")
+            .Should()
+            .BeStatic()
             .GetResult();
 
         testResult.IsSuccessful.Should().BeTrue();

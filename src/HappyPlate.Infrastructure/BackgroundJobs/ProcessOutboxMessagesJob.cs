@@ -26,6 +26,7 @@ public class ProcessOutboxMessagesJob : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
+        //TODO Add exception Handling
         List<OutboxMessage> messages = await _dbContext
             .Set<OutboxMessage>()
             .Where(m => m.ProcessedOnUtc == null)

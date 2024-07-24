@@ -11,7 +11,11 @@ public class ApplicationServiceInstaller : IServiceInstaller
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(cfg =>
-            cfg.RegisterServicesFromAssembly(Application.AssemblyReference.Assembly));
+        {
+            cfg.RegisterServicesFromAssembly(Application.AssemblyReference.Assembly);
+
+            cfg.AddOpenBehavior(typeof(QueryCachingPipelineBehavior<,>));
+        });
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
