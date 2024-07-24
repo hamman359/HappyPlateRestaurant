@@ -13,9 +13,6 @@ public sealed class LastName : ValueObject
         Value = value;
     }
 
-    private LastName()
-    {
-    }
 
     public string Value { get; private set; }
 

@@ -7,7 +7,7 @@ public sealed class MenuItem : Entity
 {
     MenuItem(
         Guid id,
-        string name,
+        MenuItemName name,
         string description,
         Price price,
         string category,
@@ -23,7 +23,7 @@ public sealed class MenuItem : Entity
         ModifiedOnUtc = DateTime.UtcNow;
     }
 
-    public string Name { get; private set; }
+    public MenuItemName Name { get; private set; }
 
     public string Description { get; private set; }
 
@@ -38,7 +38,7 @@ public sealed class MenuItem : Entity
     public DateTime? ModifiedOnUtc { get; set; }
 
     public static MenuItem Create(
-        string name,
+        MenuItemName name,
         string description,
         Price price,
         string category,

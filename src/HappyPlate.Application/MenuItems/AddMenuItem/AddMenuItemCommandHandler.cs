@@ -30,8 +30,15 @@ public class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemCommand, Gui
             return Result.Failure<Guid>(priceResult.Error);
         }
 
+        Result<MenuItemName> menuItemName = MenuItemName.Create(request.Name);
+
+        if(menuItemName.IsFailure)
+        {
+            return Result.Failure<Guid>(menuItemName.Error);
+        }
+
         var product = MenuItem.Create(
-            request.Name,
+            menuItemName.Value,
             request.Description,
             priceResult.Value,
             request.Category,

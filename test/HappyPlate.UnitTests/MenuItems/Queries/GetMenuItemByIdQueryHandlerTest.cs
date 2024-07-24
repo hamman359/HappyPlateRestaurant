@@ -6,7 +6,7 @@ namespace HappyPlate.UnitTests.MenuItems.Queries;
 public class GetMenuItemByIdQueryHandlerTest
 {
     readonly Mock<IMenuItemRepository> _menuItemRepositoryMock;
-    readonly MenuItem _menuItem = MenuItem.Create("Name", "Description", Price.Create(1.0f).Value, "Category", "Image");
+    readonly MenuItem _menuItem = MenuItem.Create(MenuItemName.Create("Name").Value, "Description", Price.Create(1.0f).Value, "Category", "Image");
 
     public GetMenuItemByIdQueryHandlerTest()
     {

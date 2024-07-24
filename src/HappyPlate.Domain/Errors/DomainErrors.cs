@@ -88,4 +88,12 @@ public static class DomainErrors
             "MenuItem.NotFound",
             $"The Menu Item with Id {id} was not found");
     }
+
+    public static class MenuItemName
+    {
+        public static readonly Error Empty = new(
+            "MenuItemName.Empty",
+            "Menu Item name is empty");
+
+    }
 }

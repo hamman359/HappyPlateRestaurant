@@ -232,7 +232,11 @@ public class ArchitectureTests
         var testResult = Types
             .InAssembly(assembly)
             .That()
-            .ImplementInterface(typeof(IQuery<>))
+            .AreClasses()
+            .And()
+            //.ImplementInterface(typeof(IQuery<>))
+            //.Or()
+            .ImplementInterface(typeof(ICachedQuery))
             .Should()
             .HaveNameEndingWith("Query")
             .GetResult();

@@ -29,7 +29,7 @@ public sealed class GetMenuItemByIdQueryHandler
 
         var response = new MenuItemResponse(
             menuItem.Id,
-            menuItem.Name,
+            menuItem.Name.Value,
             menuItem.Description,
             menuItem.Category,
             menuItem.Price.Amount,

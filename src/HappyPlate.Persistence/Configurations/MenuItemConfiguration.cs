@@ -15,6 +15,10 @@ internal sealed class MenuItemConfiguration : IEntityTypeConfiguration<MenuItem>
         builder.HasKey(x => x.Id);
 
         builder
+            .Property(x => x.Name)
+            .HasConversion(x => x.Value, x => MenuItemName.Create(x).Value);
+
+        builder
             .Property(x => x.Price)
             .HasConversion(x => x.Amount, x => Price.Create(x).Value);
     }
