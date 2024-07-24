@@ -6,7 +6,7 @@ using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Application.MenuItems.AddMenuItem;
 
-public class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemCommand, Guid>
+public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemCommand, Guid>
 {
     readonly IMenuItemRepository _menuItemRepository;
     readonly IUnitOfWork _unitOfWork;

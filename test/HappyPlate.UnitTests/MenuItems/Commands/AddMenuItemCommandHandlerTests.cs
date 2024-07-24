@@ -61,4 +61,20 @@ public class AddMenuItemCommandHandlerTests
             x => x.SaveChangesAsync(It.IsAny<CancellationToken>()),
             Times.Never);
     }
+
+    [Fact]
+    public async Task Handle_Should_CallUnitOfWork_WhenPriceIsValid()
+    {
+        var command = new AddMenuItemCommand("Product", "Description", 1.0f, "Category", "Image", true);
+
+        var handler = new AddMenuItemCommandHandler(
+            _menuItemRepositoryMock.Object,
+            _unitOfWorkMock.Object);
+
+        _ = await handler.Handle(command, default);
+
+        _unitOfWorkMock.Verify(
+            x => x.SaveChangesAsync(It.IsAny<CancellationToken>()),
+            Times.Once);
+    }
 }

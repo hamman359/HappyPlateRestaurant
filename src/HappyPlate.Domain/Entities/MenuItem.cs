@@ -59,4 +59,8 @@ public sealed class MenuItem : Entity
             isAvailable);
     }
 
+    public void ToggleAvailability()
+    {
+        IsAvailable = !IsAvailable;
+    }
 }

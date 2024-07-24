@@ -1,5 +1,6 @@
 ﻿using HappyPlate.Application.MenuItems.AddMenuItem;
 using HappyPlate.Application.MenuItems.GetMenuItemById;
+using HappyPlate.Application.MenuItems.ToggleMenuItemAvailabilityCommand;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
 using HappyPlate.Presentation.Contracts.MenuItems;
@@ -10,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HappyPlate.Presentation.Controllers;
 
-[Route("api/menuitems")]
+[Route("api/[controller]")]
 public sealed class MenuItemController : ApiController
 {
     public MenuItemController(ISender sender)
@@ -19,7 +20,7 @@ public sealed class MenuItemController : ApiController
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetMenuItemById(
+    public async Task<IActionResult> GetById(
         Guid id,
         CancellationToken cancelationToken)
     {
@@ -32,8 +33,8 @@ public sealed class MenuItemController : ApiController
             : NotFound(response.Error);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddMenuItem(
+    [HttpPost("Add")]
+    public async Task<IActionResult> Add(
         [FromBody] AddMenuItemRequest request,
         CancellationToken cancelationToken)
     {
@@ -53,9 +54,23 @@ public sealed class MenuItemController : ApiController
         }
 
         return CreatedAtAction(
-            nameof(GetMenuItemById),
+            nameof(GetById),
             new { id = result.Value },
             result.Value);
 
+    }
+
+    [HttpPost("ToggleAvailability")]
+    public async Task<IActionResult> ToggleAvailability(
+        [FromBody] Guid id,
+        CancellationToken cancelationToken)
+    {
+        var command = new ToggleMenuItemAvailabilityCommand(id);
+
+        Result<bool> response = await Sender.Send(command, cancelationToken);
+
+        return response.IsSuccess
+            ? Ok(response.Value)
+            : NotFound(response.Error);
     }
 }
