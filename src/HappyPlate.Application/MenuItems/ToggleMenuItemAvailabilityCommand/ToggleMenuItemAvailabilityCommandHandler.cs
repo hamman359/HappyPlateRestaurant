@@ -40,7 +40,7 @@ public sealed class ToggleMenuItemAvailabilityCommandHandler
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var productUpdatedEvent = new MenuItemUpdatedDomainEvent(
+        var menuItemUpdatedEvent = new MenuItemUpdatedDomainEvent(
             menuItem.Id,
             menuItem.Name.Value,
             menuItem.Description,
@@ -49,7 +49,7 @@ public sealed class ToggleMenuItemAvailabilityCommandHandler
             menuItem.Image,
             menuItem.IsAvailable);
 
-        await _publisher.Publish(productUpdatedEvent, cancellationToken);
+        await _publisher.Publish(menuItemUpdatedEvent, cancellationToken);
 
         return true;
     }

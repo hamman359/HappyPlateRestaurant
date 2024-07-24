@@ -1,8 +1,11 @@
 ﻿using HappyPlate.Application.Abstractions.Messaging;
+using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.Entities;
 using HappyPlate.Domain.Repositories;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Domain.ValueObjects;
+
+using MediatR;
 
 namespace HappyPlate.Application.MenuItems.AddMenuItem;
 
@@ -10,13 +13,16 @@ public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemComma
 {
     readonly IMenuItemRepository _menuItemRepository;
     readonly IUnitOfWork _unitOfWork;
+    readonly IPublisher _publisher;
 
     public AddMenuItemCommandHandler(
         IMenuItemRepository productRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IPublisher publisher)
     {
         _menuItemRepository = productRepository;
         _unitOfWork = unitOfWork;
+        _publisher = publisher;
     }
 
     public async Task<Result<Guid>> Handle(
@@ -37,7 +43,7 @@ public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemComma
             return Result.Failure<Guid>(menuItemName.Error);
         }
 
-        var product = MenuItem.Create(
+        var menuItem = MenuItem.Create(
             menuItemName.Value,
             request.Description,
             priceResult.Value,
@@ -45,10 +51,21 @@ public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemComma
             request.Image,
             request.IsAvailable);
 
-        _menuItemRepository.Add(product);
+        _menuItemRepository.Add(menuItem);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return product.Id;
+        var menuItemCreatedEvent = new MenuItemCreatedDomainEvent(
+            menuItem.Id,
+            menuItem.Name.Value,
+            menuItem.Description,
+            menuItem.Category,
+            menuItem.Price.Amount,
+            menuItem.Image,
+            menuItem.IsAvailable);
+
+        await _publisher.Publish(menuItemCreatedEvent, cancellationToken);
+
+        return menuItem.Id;
     }
 }
