@@ -33,7 +33,8 @@ public sealed class GetMenuItemByIdQueryHandler
             menuItem.Description,
             menuItem.Category,
             menuItem.Price.Amount,
-            menuItem.Image);
+            menuItem.Image,
+            menuItem.IsAvailable);
 
         return response;
     }

@@ -42,7 +42,8 @@ public class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemCommand, Gui
             request.Description,
             priceResult.Value,
             request.Category,
-            request.Image);
+            request.Image,
+            request.IsAvailable);
 
         _menuItemRepository.Add(product);
 

@@ -11,7 +11,8 @@ public sealed class MenuItem : Entity
         string description,
         Price price,
         string category,
-        string image)
+        string image,
+        bool isAvailable)
         : base(id)
     {
         Image = image;
@@ -19,6 +20,7 @@ public sealed class MenuItem : Entity
         Description = description;
         Price = price;
         Category = category;
+        IsAvailable = isAvailable;
         CreatedOnUtc = DateTime.UtcNow;
         ModifiedOnUtc = DateTime.UtcNow;
     }
@@ -33,6 +35,8 @@ public sealed class MenuItem : Entity
 
     public string Image { get; private set; }
 
+    public bool IsAvailable { get; private set; }
+
     public DateTime CreatedOnUtc { get; set; }
 
     public DateTime? ModifiedOnUtc { get; set; }
@@ -42,7 +46,8 @@ public sealed class MenuItem : Entity
         string description,
         Price price,
         string category,
-        string image)
+        string image,
+        bool isAvailable)
     {
         return new MenuItem(
             Guid.NewGuid(),
@@ -50,7 +55,8 @@ public sealed class MenuItem : Entity
             description,
             price,
             category,
-            image);
+            image,
+            isAvailable);
     }
 
 }

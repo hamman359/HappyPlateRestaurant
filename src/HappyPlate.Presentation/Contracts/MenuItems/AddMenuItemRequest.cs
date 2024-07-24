@@ -5,4 +5,5 @@ public sealed record AddMenuItemRequest(
     string description,
     float price,
     string category,
-    string image);
+    string image,
+    bool isAvailable);

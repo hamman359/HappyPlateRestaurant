@@ -7,4 +7,5 @@ public sealed record MenuItemResponse(
     string Description,
     string Category,
     float Price,
-    string Image);
+    string Image,
+    bool isAvailable);

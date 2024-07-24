@@ -42,7 +42,8 @@ public sealed class MenuItemController : ApiController
             request.description,
             request.price,
             request.category,
-            request.image);
+            request.image,
+            request.isAvailable);
 
         var result = await Sender.Send(command, cancelationToken);
 

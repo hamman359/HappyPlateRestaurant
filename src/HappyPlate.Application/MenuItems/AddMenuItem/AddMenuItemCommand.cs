@@ -7,4 +7,5 @@ public sealed record AddMenuItemCommand(
     string Description,
     float Price,
     string Category,
-    string Image) : ICommand<Guid>;
+    string Image,
+    bool IsAvailable) : ICommand<Guid>;

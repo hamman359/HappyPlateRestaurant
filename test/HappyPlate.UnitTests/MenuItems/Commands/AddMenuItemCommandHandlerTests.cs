@@ -17,7 +17,7 @@ public class AddMenuItemCommandHandlerTests
     [Fact]
     public async Task Handle_Should_ReturnFailureResult_WhenPriceIsNegative()
     {
-        var command = new AddMenuItemCommand("Product", "Description", -1.0f, "Category", "Image");
+        var command = new AddMenuItemCommand("Product", "Description", -1.0f, "Category", "Image", true);
 
         var handler = new AddMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
@@ -32,7 +32,7 @@ public class AddMenuItemCommandHandlerTests
     [Fact]
     public async Task Handle_Should_CallAddOnRepository_WhenPriceIsValid()
     {
-        var command = new AddMenuItemCommand("Product", "Description", 1.0f, "Category", "Image");
+        var command = new AddMenuItemCommand("Product", "Description", 1.0f, "Category", "Image", true);
 
         var handler = new AddMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
@@ -49,7 +49,7 @@ public class AddMenuItemCommandHandlerTests
     [Fact]
     public async Task Handle_Should_NotCallUnitOfWork_WhenPriceIsNegative()
     {
-        var command = new AddMenuItemCommand("Product", "Description", -1.0f, "Category", "Image");
+        var command = new AddMenuItemCommand("Product", "Description", -1.0f, "Category", "Image", true);
 
         var handler = new AddMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
