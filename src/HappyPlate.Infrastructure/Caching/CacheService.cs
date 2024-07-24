@@ -32,4 +32,12 @@ public sealed class CacheService : ICacheService
 
         return result;
     }
+
+    public void Remove(
+        string key,
+        CancellationToken cancellationToken)
+    {
+        _memoryCache.Remove(key);
+    }
 }
+

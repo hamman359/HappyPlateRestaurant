@@ -8,4 +8,4 @@ public sealed record MenuItemResponse(
     string Category,
     float Price,
     string Image,
-    bool isAvailable);
+    bool IsAvailable);
