@@ -6,7 +6,7 @@ using HappyPlate.Domain.Shared;
 
 using MediatR;
 
-namespace HappyPlate.Application.MenuItems.ToggleMenuItemAvailabilityCommand;
+namespace HappyPlate.Application.MenuItems.ToggleMenuItemAvailability;
 
 public sealed class ToggleMenuItemAvailabilityCommandHandler
     : ICommandHandler<ToggleMenuItemAvailabilityCommand, bool>

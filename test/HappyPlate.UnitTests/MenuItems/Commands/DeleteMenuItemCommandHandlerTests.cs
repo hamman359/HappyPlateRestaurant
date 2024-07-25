@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.ToggleMenuItemAvailability;
+﻿using HappyPlate.Application.MenuItems.DeleteMenuItem;
 using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.ValueObjects;
 
@@ -7,7 +7,7 @@ using MediatR;
 
 namespace HappyPlate.UnitTests.MenuItems.Commands;
 
-public class ToggleMenuItemAvailabilityCommandHandlerTests
+public class DeleteMenuItemCommandHandlerTests
 {
     readonly Mock<IMenuItemRepository> _menuItemRepositoryMock;
     readonly Mock<IUnitOfWork> _unitOfWorkMock;
@@ -21,7 +21,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
         "Image",
         true);
 
-    public ToggleMenuItemAvailabilityCommandHandlerTests()
+    public DeleteMenuItemCommandHandlerTests()
     {
         _menuItemRepositoryMock = new();
         _unitOfWorkMock = new();
@@ -31,7 +31,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     [Fact]
     public async Task Handle_Should_ReturnSuccessResult_WhenMenuItemIsFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -39,7 +39,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(_menuItem);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -53,7 +53,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     [Fact]
     public async Task Handle_Should_ReturnFailureResult_WhenMenuItemIsNotFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -61,7 +61,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync((MenuItem?)null);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -74,9 +74,9 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     [Fact]
     public async Task Handle_Should_CallGetByIdAsyncOnRepository()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -91,7 +91,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     [Fact]
     public async Task Handle_Should_NotCallUnitOfWork_WhenMenuItemIsNotFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -99,7 +99,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync((MenuItem?)null);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -114,7 +114,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     [Fact]
     public async Task Handle_Should_CallUnitOfWork_WhenMenuItemIsFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -122,7 +122,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(_menuItem);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -135,9 +135,9 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Should_PublishMenuItemUpdatedDomainEvent_WhenMenuItemIsFound()
+    public async Task Handle_Should_PublishMenuItemDeletedDomainEvent_WhenMenuItemIsFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -145,7 +145,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(_menuItem);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -154,15 +154,15 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
 
         _publisherMock.Verify(
             x => x.Publish(
-                It.IsAny<MenuItemUpdatedDomainEvent>(),
+                It.IsAny<MenuItemDeletedDomainEvent>(),
                 It.IsAny<CancellationToken>()),
             Times.Once);
     }
 
     [Fact]
-    public async Task Handle_Should_NotPublishMenuItemUpdatedDomainEvent_WhenMenuItemIsNotFound()
+    public async Task Handle_Should_NotPublishMenuItemDeletedDomainEvent_WhenMenuItemIsNotFound()
     {
-        var command = new ToggleMenuItemAvailabilityCommand(_menuItem.Id);
+        var command = new DeleteMenuItemCommand(_menuItem.Id);
 
         _menuItemRepositoryMock.Setup(
             x => x.GetByIdAsync(
@@ -170,7 +170,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync((MenuItem?)null);
 
-        var handler = new ToggleMenuItemAvailabilityCommandHandler(
+        var handler = new DeleteMenuItemCommandHandler(
             _menuItemRepositoryMock.Object,
             _unitOfWorkMock.Object,
             _publisherMock.Object);
@@ -179,7 +179,7 @@ public class ToggleMenuItemAvailabilityCommandHandlerTests
 
         _publisherMock.Verify(
             x => x.Publish(
-                It.IsAny<MenuItemUpdatedDomainEvent>(),
+                It.IsAny<MenuItemDeletedDomainEvent>(),
                 It.IsAny<CancellationToken>()),
             Times.Never);
     }

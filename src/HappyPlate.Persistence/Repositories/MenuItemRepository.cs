@@ -16,11 +16,16 @@ internal sealed class MenuItemRepository : IMenuItemRepository
 
     public async Task<MenuItem?> GetByIdAsync(Guid menuItemId, CancellationToken cancellationToken) =>
         await _dbContext
-        .Set<MenuItem>()
-        .FirstOrDefaultAsync(x => x.Id == menuItemId, cancellationToken);
+            .Set<MenuItem>()
+            .FirstOrDefaultAsync(x => x.Id == menuItemId, cancellationToken);
 
     public void Add(MenuItem menuItem) =>
         _dbContext
-        .Set<MenuItem>()
-        .Add(menuItem);
+            .Set<MenuItem>()
+            .Add(menuItem);
+
+    public void Remove(MenuItem menuItem) =>
+        _dbContext
+            .Set<MenuItem>()
+            .Remove(menuItem);
 }
