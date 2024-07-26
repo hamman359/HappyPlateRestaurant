@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HappyPlate.Infrastructure.Idempotence;
 
-public sealed class IdempotentDomainEventHandler<TDomainEvent> : IDomainEventHandler<TDomainEvent>
+public sealed class IdempotentDomainEventHandler<TDomainEvent>
+    : IDomainEventHandler<TDomainEvent>
     where TDomainEvent : IDomainEvent
 {
     private readonly INotificationHandler<TDomainEvent> _decorated;

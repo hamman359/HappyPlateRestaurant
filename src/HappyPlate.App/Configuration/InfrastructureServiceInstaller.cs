@@ -1,5 +1,4 @@
 ﻿using HappyPlate.Persistence;
-using HappyPlate.Persistence.Interceptors;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -23,9 +22,9 @@ public class InfrastructureServiceInstaller : IServiceInstaller
                     .AsMatchingInterface()
                     .WithScopedLifetime());
 
-        services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
+        //services.AddSingleton<ConvertDomainEventsToOutboxMessagesInterceptor>();
 
-        services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
+        //services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
 
         services.AddDbContext<ApplicationDbContext>(
             (sp, optionsBuilder) =>

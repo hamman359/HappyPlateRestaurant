@@ -58,7 +58,6 @@ public sealed class MenuItemController : ApiController
             nameof(GetById),
             new { id = result.Value },
             result.Value);
-
     }
 
     [HttpPost("{id:guid}/ToggleAvailability")]

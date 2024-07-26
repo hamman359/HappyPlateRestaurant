@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 
 using HappyPlate.Application.Behaviors;
+using HappyPlate.Infrastructure.Idempotence;
 
 using MediatR;
 
@@ -19,7 +20,7 @@ public class ApplicationServiceInstaller : IServiceInstaller
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationPipelineBehavior<,>));
 
-        //services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
+        services.Decorate(typeof(INotificationHandler<>), typeof(IdempotentDomainEventHandler<>));
 
         services.AddValidatorsFromAssembly(
             Application.AssemblyReference.Assembly,
