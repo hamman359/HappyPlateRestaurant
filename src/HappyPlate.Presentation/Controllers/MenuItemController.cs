@@ -1,7 +1,9 @@
 ﻿using HappyPlate.Application.MenuItems.AddMenuItem;
+using HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
 using HappyPlate.Application.MenuItems.DeleteMenuItem;
 using HappyPlate.Application.MenuItems.GetMenuItemById;
-using HappyPlate.Application.MenuItems.ToggleMenuItemAvailability;
+using HappyPlate.Application.MenuItems.SetMenuItemAvailable;
+using HappyPlate.Application.MenuItems.SetMenuItemUnavailable;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
 using HappyPlate.Presentation.Contracts.MenuItems;
@@ -60,12 +62,26 @@ public sealed class MenuItemController : ApiController
             result.Value);
     }
 
-    [HttpPost("{id:guid}/ToggleAvailability")]
-    public async Task<IActionResult> ToggleAvailability(
+    [HttpPost("{id:guid}/SetAsUnavailable")]
+    public async Task<IActionResult> SetAsUnavailable(
         Guid id,
         CancellationToken cancelationToken)
     {
-        var command = new ToggleMenuItemAvailabilityCommand(id);
+        var command = new SetMenuItemUnavailableCommand(id);
+
+        Result<bool> response = await Sender.Send(command, cancelationToken);
+
+        return response.IsSuccess
+            ? Ok()
+            : NotFound(response.Error);
+    }
+
+    [HttpPost("{id:guid}/SetAsAvailable")]
+    public async Task<IActionResult> SetAsAvailable(
+    Guid id,
+    CancellationToken cancelationToken)
+    {
+        var command = new SetMenuItemAvailableCommand(id);
 
         Result<bool> response = await Sender.Send(command, cancelationToken);
 
@@ -86,5 +102,24 @@ public sealed class MenuItemController : ApiController
         return response.IsSuccess
             ? Ok()
             : NotFound(response.Error);
+    }
+
+    [HttpPut("{id:guid}/ChangePrice")]
+    public async Task<IActionResult> ChangePrice(
+    [FromBody] ChangeMenuItemPriceRequest request,
+    CancellationToken cancelationToken)
+    {
+        var command = new ChangeMenuItemPriceCommand(
+            request.Id,
+            request.Price);
+
+        Result<Guid> result = await Sender.Send(command, cancelationToken);
+
+        if(result.IsFailure)
+        {
+            return HandleFailure(result);
+        }
+
+        return Ok();
     }
 }

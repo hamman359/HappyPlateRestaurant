@@ -25,6 +25,12 @@ public abstract class ApiController : ControllerBase
                     StatusCodes.Status400BadRequest,
                     result.Error,
                     validationResult.Errors)),
+        //{ Error: NotFoundError } =>
+        //    NotFound(
+        //        CreateProblemDetails(
+        //            "Not Found",
+        //            StatusCodes.Status404NotFound,
+        //            result.Error)),
         _ =>
             BadRequest(
                 CreateProblemDetails(

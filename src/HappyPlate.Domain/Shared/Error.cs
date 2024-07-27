@@ -19,12 +19,12 @@ public class Error : IEquatable<Error>
 
     public static bool operator ==(Error? a, Error? b)
     {
-        if (a is null && b is null)
+        if(a is null && b is null)
         {
             return true;
         }
 
-        if (a is null || b is null)
+        if(a is null || b is null)
         {
             return false;
         }
@@ -36,7 +36,7 @@ public class Error : IEquatable<Error>
 
     public virtual bool Equals(Error? other)
     {
-        if (other is null)
+        if(other is null)
         {
             return false;
         }
@@ -49,4 +49,12 @@ public class Error : IEquatable<Error>
     public override int GetHashCode() => HashCode.Combine(Code, Message);
 
     public override string ToString() => Code;
+}
+
+public class NotFoundError : Error
+{
+    public NotFoundError(string code, string message)
+        : base(code, message)
+    {
+    }
 }

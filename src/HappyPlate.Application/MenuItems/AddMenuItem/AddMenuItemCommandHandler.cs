@@ -16,11 +16,11 @@ public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemComma
     readonly IPublisher _publisher;
 
     public AddMenuItemCommandHandler(
-        IMenuItemRepository productRepository,
+        IMenuItemRepository menuItemRepository,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
     {
-        _menuItemRepository = productRepository;
+        _menuItemRepository = menuItemRepository;
         _unitOfWork = unitOfWork;
         _publisher = publisher;
     }

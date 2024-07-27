@@ -5,7 +5,7 @@ using HappyPlate.Domain.DomainEvents;
 namespace HappyPlate.Application.MenuItems.Events;
 
 internal class MenuItemCacheInvalidationDomainEventHandler
-    : IDomainEventHandler<MenuItemUpdatedDomainEvent>
+    : IDomainEventHandler<MenuItemPriceChangedDomainEvent>
     , IDomainEventHandler<MenuItemDeletedDomainEvent>
     , IDomainEventHandler<MenuItemCreatedDomainEvent>
 
@@ -18,7 +18,7 @@ internal class MenuItemCacheInvalidationDomainEventHandler
     }
 
     public Task Handle(
-        MenuItemUpdatedDomainEvent notification,
+        MenuItemPriceChangedDomainEvent notification,
         CancellationToken cancellationToken)
     {
         HandleInternal(notification.Id, cancellationToken);

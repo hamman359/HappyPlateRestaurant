@@ -6,16 +6,16 @@ using HappyPlate.Domain.Shared;
 
 using MediatR;
 
-namespace HappyPlate.Application.MenuItems.ToggleMenuItemAvailability;
+namespace HappyPlate.Application.MenuItems.SetMenuItemAvailable;
 
-public sealed class ToggleMenuItemAvailabilityCommandHandler
-    : ICommandHandler<ToggleMenuItemAvailabilityCommand, bool>
+public sealed class SetMenuItemAvailableCommandHandler
+    : ICommandHandler<SetMenuItemAvailableCommand, bool>
 {
     readonly IMenuItemRepository _menuItemRepository;
     readonly IUnitOfWork _unitOfWork;
     readonly IPublisher _publisher;
 
-    public ToggleMenuItemAvailabilityCommandHandler(
+    public SetMenuItemAvailableCommandHandler(
         IMenuItemRepository menuItemRepository,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
@@ -26,7 +26,7 @@ public sealed class ToggleMenuItemAvailabilityCommandHandler
     }
 
     public async Task<Result<bool>> Handle(
-        ToggleMenuItemAvailabilityCommand request,
+        SetMenuItemAvailableCommand request,
         CancellationToken cancellationToken)
     {
         var menuItem = await _menuItemRepository.GetByIdAsync(request.MenuItemId, cancellationToken);
@@ -36,20 +36,13 @@ public sealed class ToggleMenuItemAvailabilityCommandHandler
             return Result.Failure<bool>(DomainErrors.MenuItem.NotFound(request.MenuItemId));
         }
 
-        menuItem.ToggleAvailability();
+        menuItem.SetAsAvailable();
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var menuItemUpdatedEvent = new MenuItemUpdatedDomainEvent(
-            menuItem.Id,
-            menuItem.Name.Value,
-            menuItem.Description,
-            menuItem.Category,
-            menuItem.Price.Amount,
-            menuItem.Image,
-            menuItem.IsAvailable);
+        var menuItemUnavailableEvent = new MenuItemAvailableDomainEvent(menuItem.Id);
 
-        await _publisher.Publish(menuItemUpdatedEvent, cancellationToken);
+        await _publisher.Publish(menuItemUnavailableEvent, cancellationToken);
 
         return true;
     }

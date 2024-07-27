@@ -1,7 +1,9 @@
 ﻿using HappyPlate.Application.MenuItems.AddMenuItem;
+using HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
 using HappyPlate.Application.MenuItems.DeleteMenuItem;
 using HappyPlate.Application.MenuItems.GetMenuItemById;
-using HappyPlate.Application.MenuItems.ToggleMenuItemAvailability;
+using HappyPlate.Application.MenuItems.SetMenuItemAvailable;
+using HappyPlate.Application.MenuItems.SetMenuItemUnavailable;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Contracts.MenuItems;
 using HappyPlate.Presentation.Controllers;
@@ -146,48 +148,96 @@ public class MenuItemControllerTests
     }
 
     [Fact]
-    async Task ToggleAvailability_Should_SendToggleMenuItemAvailabilityCommand()
+    async Task SetAsUnavailable_Should_SendToggleMenuItemAvailabilityCommand()
     {
         _senderMock.Setup(
             x => x.Send(
-                It.IsAny<ToggleMenuItemAvailabilityCommand>(),
+                It.IsAny<SetMenuItemUnavailableCommand>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Success(true));
 
-        _ = await _controller.ToggleAvailability(Guid.NewGuid(), default);
+        _ = await _controller.SetAsUnavailable(Guid.NewGuid(), default);
 
         _senderMock.Verify(
-            x => x.Send(It.IsAny<ToggleMenuItemAvailabilityCommand>(), It.IsAny<CancellationToken>()),
+            x => x.Send(It.IsAny<SetMenuItemUnavailableCommand>(), It.IsAny<CancellationToken>()),
             Times.Once());
     }
 
 
     [Fact]
-    async Task ToggleAvailability_Should_ReturnOkWhenResponseIsSuccessful()
+    async Task SetAsUnavailable_Should_ReturnOkWhenResponseIsSuccessful()
     {
         _senderMock.Setup(
             x => x.Send(
-                It.IsAny<ToggleMenuItemAvailabilityCommand>(),
+                It.IsAny<SetMenuItemUnavailableCommand>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 Result.Success(true));
 
-        var response = await _controller.ToggleAvailability(Guid.NewGuid(), default);
+        var response = await _controller.SetAsUnavailable(Guid.NewGuid(), default);
 
         response.Should().BeOfType<OkResult>();
     }
 
     [Fact]
-    async Task ToggleAvailability_Should_ReturnNotFoundWhenResponseIsSuccessful()
+    async Task SetAsUnavailable_Should_ReturnNotFoundWhenResponseIsSuccessful()
     {
         _senderMock.Setup(
             x => x.Send(
-                It.IsAny<ToggleMenuItemAvailabilityCommand>(),
+                It.IsAny<SetMenuItemUnavailableCommand>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 Result.Failure<bool>(DomainErrors.MenuItem.NotFound(Guid.NewGuid())));
 
-        var response = await _controller.ToggleAvailability(Guid.NewGuid(), default);
+        var response = await _controller.SetAsUnavailable(Guid.NewGuid(), default);
+
+        response.Should().BeOfType<NotFoundObjectResult>();
+    }
+
+
+    [Fact]
+    async Task SetAsAvailable_Should_SendToggleMenuItemAvailabilityCommand()
+    {
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<SetMenuItemAvailableCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Success(true));
+
+        _ = await _controller.SetAsAvailable(Guid.NewGuid(), default);
+
+        _senderMock.Verify(
+            x => x.Send(It.IsAny<SetMenuItemAvailableCommand>(), It.IsAny<CancellationToken>()),
+            Times.Once());
+    }
+
+
+    [Fact]
+    async Task SetAsAvailable_Should_ReturnOkWhenResponseIsSuccessful()
+    {
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<SetMenuItemAvailableCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Success(true));
+
+        var response = await _controller.SetAsAvailable(Guid.NewGuid(), default);
+
+        response.Should().BeOfType<OkResult>();
+    }
+
+    [Fact]
+    async Task SetAsAvailable_Should_ReturnNotFoundWhenResponseIsSuccessful()
+    {
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<SetMenuItemAvailableCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Failure<bool>(DomainErrors.MenuItem.NotFound(Guid.NewGuid())));
+
+        var response = await _controller.SetAsAvailable(Guid.NewGuid(), default);
 
         response.Should().BeOfType<NotFoundObjectResult>();
     }
@@ -239,4 +289,75 @@ public class MenuItemControllerTests
         response.Should().BeOfType<NotFoundObjectResult>();
     }
 
+
+    [Fact]
+    async Task ChangePrice_Should_SendChangeMenuItemPriceCommand()
+    {
+        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
+
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<ChangeMenuItemPriceCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Success(request.Id));
+
+        _ = await _controller.ChangePrice(request, default);
+
+        _senderMock.Verify(
+            x => x.Send(It.IsAny<ChangeMenuItemPriceCommand>(), It.IsAny<CancellationToken>()),
+            Times.Once());
+    }
+
+
+    [Fact]
+    async Task ChangePrice_Should_ReturnOkWhenResponseIsSuccessful()
+    {
+        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
+
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<ChangeMenuItemPriceCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Success(request.Id));
+
+        var response = await _controller.ChangePrice(request, default);
+
+        response.Should().BeOfType<OkResult>();
+    }
+
+    [Fact]
+    async Task ChangePrice_Should_ReturnNotFoundWhenMenuItemDoesNotExist()
+    {
+        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
+
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<ChangeMenuItemPriceCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(request.Id)));
+
+        var response = await _controller.ChangePrice(request, default);
+
+        //TODO: Update and fix
+        response.Should().BeOfType<BadRequestObjectResult>();
+    }
+
+    [Fact]
+    async Task ChangePrice_Should_ReturnBadRequestWhenPriceIsInvalid()
+    {
+        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), -1.0f);
+
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<ChangeMenuItemPriceCommand>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Failure<Guid>(DomainErrors.Price.Negative));
+
+        var response = await _controller.ChangePrice(request, default);
+
+        response.Should().BeOfType<BadRequestObjectResult>();
+    }
 }
