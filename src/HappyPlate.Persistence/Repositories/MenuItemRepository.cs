@@ -28,4 +28,9 @@ internal sealed class MenuItemRepository : IMenuItemRepository
         _dbContext
             .Set<MenuItem>()
             .Remove(menuItem);
+
+    public async Task<IList<MenuItem>> GetAllAsync(CancellationToken cancellationToken) =>
+        await _dbContext
+            .Set<MenuItem>()
+            .ToListAsync(cancellationToken);
 }

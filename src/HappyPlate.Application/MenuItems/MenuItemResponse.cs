@@ -1,4 +1,4 @@
-﻿namespace HappyPlate.Application.MenuItems.GetMenuItemById;
+﻿namespace HappyPlate.Application.MenuItems;
 
 
 public sealed record MenuItemResponse(

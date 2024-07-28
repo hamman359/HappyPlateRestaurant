@@ -1,4 +1,5 @@
-﻿using HappyPlate.Application.MenuItems.AddMenuItem;
+﻿using HappyPlate.Application.MenuItems;
+using HappyPlate.Application.MenuItems.AddMenuItem;
 using HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
 using HappyPlate.Application.MenuItems.DeleteMenuItem;
 using HappyPlate.Application.MenuItems.GetMenuItemById;
@@ -17,7 +18,7 @@ namespace HappyPlate.UnitTests.MenuItems.Controllers;
 public class MenuItemControllerTests
 {
     readonly Mock<ISender> _senderMock;
-    MenuItemController _controller;
+    readonly MenuItemController _controller;
 
     public MenuItemControllerTests()
     {

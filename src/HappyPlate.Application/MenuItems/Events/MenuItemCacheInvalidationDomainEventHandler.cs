@@ -47,5 +47,6 @@ internal class MenuItemCacheInvalidationDomainEventHandler
     void HandleInternal(Guid menuItemId, CancellationToken cancellationToken)
     {
         _cacheService.Remove($"menu-items-by-id-{menuItemId}", cancellationToken);
+        _cacheService.Remove($"menu-items", cancellationToken);
     }
 }

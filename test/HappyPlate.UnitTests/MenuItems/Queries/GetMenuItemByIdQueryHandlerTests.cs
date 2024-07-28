@@ -3,7 +3,7 @@ using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.UnitTests.MenuItems.Queries;
 
-public class GetMenuItemByIdQueryHandlerTest
+public class GetMenuItemByIdQueryHandlerTests
 {
     readonly Mock<IMenuItemRepository> _menuItemRepositoryMock;
     readonly MenuItem _menuItem = MenuItem.Create(
@@ -14,7 +14,7 @@ public class GetMenuItemByIdQueryHandlerTest
         "Image",
         true);
 
-    public GetMenuItemByIdQueryHandlerTest()
+    public GetMenuItemByIdQueryHandlerTests()
     {
         _menuItemRepositoryMock = new();
     }
