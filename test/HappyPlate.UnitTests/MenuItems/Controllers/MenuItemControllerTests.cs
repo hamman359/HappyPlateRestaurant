@@ -293,15 +293,13 @@ public class MenuItemControllerTests
     [Fact]
     async Task ChangePrice_Should_SendChangeMenuItemPriceCommand()
     {
-        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
-
         _senderMock.Setup(
             x => x.Send(
                 It.IsAny<ChangeMenuItemPriceCommand>(),
                 It.IsAny<CancellationToken>()))
-            .ReturnsAsync(Result.Success(request.Id));
+            .ReturnsAsync(Result.Success(Guid.NewGuid()));
 
-        _ = await _controller.ChangePrice(request, default);
+        _ = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
 
         _senderMock.Verify(
             x => x.Send(It.IsAny<ChangeMenuItemPriceCommand>(), It.IsAny<CancellationToken>()),
@@ -312,16 +310,14 @@ public class MenuItemControllerTests
     [Fact]
     async Task ChangePrice_Should_ReturnOkWhenResponseIsSuccessful()
     {
-        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
-
         _senderMock.Setup(
             x => x.Send(
                 It.IsAny<ChangeMenuItemPriceCommand>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(
-                Result.Success(request.Id));
+                Result.Success(Guid.NewGuid()));
 
-        var response = await _controller.ChangePrice(request, default);
+        var response = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
 
         response.Should().BeOfType<OkResult>();
     }
@@ -329,16 +325,14 @@ public class MenuItemControllerTests
     [Fact]
     async Task ChangePrice_Should_ReturnNotFoundWhenMenuItemDoesNotExist()
     {
-        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), 1.0f);
-
         _senderMock.Setup(
             x => x.Send(
                 It.IsAny<ChangeMenuItemPriceCommand>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(
-                Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(request.Id)));
+                Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(Guid.NewGuid())));
 
-        var response = await _controller.ChangePrice(request, default);
+        var response = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
 
         //TODO: Update and fix
         response.Should().BeOfType<BadRequestObjectResult>();
@@ -347,8 +341,6 @@ public class MenuItemControllerTests
     [Fact]
     async Task ChangePrice_Should_ReturnBadRequestWhenPriceIsInvalid()
     {
-        var request = new ChangeMenuItemPriceRequest(Guid.NewGuid(), -1.0f);
-
         _senderMock.Setup(
             x => x.Send(
                 It.IsAny<ChangeMenuItemPriceCommand>(),
@@ -356,7 +348,7 @@ public class MenuItemControllerTests
             .ReturnsAsync(
                 Result.Failure<Guid>(DomainErrors.Price.Negative));
 
-        var response = await _controller.ChangePrice(request, default);
+        var response = await _controller.ChangePrice(Guid.NewGuid(), -1.0f, default);
 
         response.Should().BeOfType<BadRequestObjectResult>();
     }

@@ -62,7 +62,7 @@ public sealed class MenuItemController : ApiController
             result.Value);
     }
 
-    [HttpPost("{id:guid}/SetAsUnavailable")]
+    [HttpPut("{id:guid}/SetAsUnavailable")]
     public async Task<IActionResult> SetAsUnavailable(
         Guid id,
         CancellationToken cancelationToken)
@@ -76,7 +76,7 @@ public sealed class MenuItemController : ApiController
             : NotFound(response.Error);
     }
 
-    [HttpPost("{id:guid}/SetAsAvailable")]
+    [HttpPut("{id:guid}/SetAsAvailable")]
     public async Task<IActionResult> SetAsAvailable(
     Guid id,
     CancellationToken cancelationToken)
@@ -106,12 +106,13 @@ public sealed class MenuItemController : ApiController
 
     [HttpPut("{id:guid}/ChangePrice")]
     public async Task<IActionResult> ChangePrice(
-    [FromBody] ChangeMenuItemPriceRequest request,
+    Guid id,
+    [FromBody] float price,
     CancellationToken cancelationToken)
     {
         var command = new ChangeMenuItemPriceCommand(
-            request.Id,
-            request.Price);
+            id,
+            price);
 
         Result<Guid> result = await Sender.Send(command, cancelationToken);
 
