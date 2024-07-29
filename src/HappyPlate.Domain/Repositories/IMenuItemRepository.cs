@@ -8,4 +8,5 @@ public interface IMenuItemRepository
     void Add(MenuItem menuItem);
     void Remove(MenuItem menuItem);
     Task<IList<MenuItem>> GetAllAsync(CancellationToken cancellationToken);
+    Task<IList<MenuItem>> GetByCategoryAsync(string category, CancellationToken cancellationToken);
 }

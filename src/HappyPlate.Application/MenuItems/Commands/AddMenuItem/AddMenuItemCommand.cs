@@ -1,6 +1,6 @@
 ﻿using HappyPlate.Application.Abstractions.Messaging;
 
-namespace HappyPlate.Application.MenuItems.AddMenuItem;
+namespace HappyPlate.Application.MenuItems.Commands.AddMenuItem;
 
 public sealed record AddMenuItemCommand(
     string Name,

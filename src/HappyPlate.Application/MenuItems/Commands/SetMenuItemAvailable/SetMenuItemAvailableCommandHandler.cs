@@ -6,16 +6,16 @@ using HappyPlate.Domain.Shared;
 
 using MediatR;
 
-namespace HappyPlate.Application.MenuItems.SetMenuItemUnavailable;
+namespace HappyPlate.Application.MenuItems.Commands.SetMenuItemAvailable;
 
-public sealed class SetMenuItemUnavailableCommandHandler
-    : ICommandHandler<SetMenuItemUnavailableCommand, bool>
+public sealed class SetMenuItemAvailableCommandHandler
+    : ICommandHandler<SetMenuItemAvailableCommand, bool>
 {
     readonly IMenuItemRepository _menuItemRepository;
     readonly IUnitOfWork _unitOfWork;
     readonly IPublisher _publisher;
 
-    public SetMenuItemUnavailableCommandHandler(
+    public SetMenuItemAvailableCommandHandler(
         IMenuItemRepository menuItemRepository,
         IUnitOfWork unitOfWork,
         IPublisher publisher)
@@ -26,21 +26,21 @@ public sealed class SetMenuItemUnavailableCommandHandler
     }
 
     public async Task<Result<bool>> Handle(
-        SetMenuItemUnavailableCommand request,
+        SetMenuItemAvailableCommand request,
         CancellationToken cancellationToken)
     {
         var menuItem = await _menuItemRepository.GetByIdAsync(request.MenuItemId, cancellationToken);
 
-        if(menuItem is null)
+        if (menuItem is null)
         {
             return Result.Failure<bool>(DomainErrors.MenuItem.NotFound(request.MenuItemId));
         }
 
-        menuItem.SetAsUnavailable();
+        menuItem.SetAsAvailable();
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        var menuItemUnavailableEvent = new MenuItemUnavailableDomainEvent(menuItem.Id);
+        var menuItemUnavailableEvent = new MenuItemAvailableDomainEvent(menuItem.Id);
 
         await _publisher.Publish(menuItemUnavailableEvent, cancellationToken);
 

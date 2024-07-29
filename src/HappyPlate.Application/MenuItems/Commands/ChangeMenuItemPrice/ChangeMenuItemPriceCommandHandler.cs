@@ -7,7 +7,7 @@ using HappyPlate.Domain.ValueObjects;
 
 using MediatR;
 
-namespace HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
+namespace HappyPlate.Application.MenuItems.Commands.ChangeMenuItemPrice;
 
 public sealed class ChangeMenuItemPriceCommandHandler
     : ICommandHandler<ChangeMenuItemPriceCommand, Guid>
@@ -34,14 +34,14 @@ public sealed class ChangeMenuItemPriceCommandHandler
     {
         var menuItem = await _menuItemRepository.GetByIdAsync(request.Id, cancellationToken);
 
-        if(menuItem is null)
+        if (menuItem is null)
         {
             return Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(request.Id));
         }
 
         Result<Price> priceResult = Price.Create(request.Price);
 
-        if(priceResult.IsFailure)
+        if (priceResult.IsFailure)
         {
             return Result.Failure<Guid>(priceResult.Error);
         }

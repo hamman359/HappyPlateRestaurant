@@ -1,6 +1,6 @@
 ﻿using HappyPlate.Application.Abstractions.Messaging;
 
-namespace HappyPlate.Application.MenuItems.GetAllMenuItems;
+namespace HappyPlate.Application.MenuItems.Queries.GetAllMenuItems;
 public sealed record GetAllMenuItemsQuery()
     : ICachedQuery<IList<MenuItemResponse>>
 {

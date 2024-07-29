@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.AddMenuItem;
+﻿using HappyPlate.Application.MenuItems.Commands.AddMenuItem;
 using HappyPlate.Domain.DomainEvents;
 
 using MediatR;

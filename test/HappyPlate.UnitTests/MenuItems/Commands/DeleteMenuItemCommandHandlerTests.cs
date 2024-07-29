@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.DeleteMenuItem;
+﻿using HappyPlate.Application.MenuItems.Commands.DeleteMenuItem;
 using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.ValueObjects;
 

@@ -1,5 +1,6 @@
 ﻿using HappyPlate.Application.MenuItems;
-using HappyPlate.Application.MenuItems.GetAllMenuItems;
+using HappyPlate.Application.MenuItems.Queries.GetAllMenuItems;
+using HappyPlate.Application.MenuItems.Queries.GetMenuItemsByCategory;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Controllers;
 
@@ -46,10 +47,43 @@ public class MenuItemsControllerTests
                 It.IsAny<GetAllMenuItemsQuery>(),
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(
-                Result.Success(
-                    result));
+                Result.Success(result));
 
         var response = await _controller.Get(default);
+
+        response.Should().BeOfType<OkObjectResult>();
+    }
+
+
+    [Fact]
+    async Task GetByCategory_Should_SendGetMenuItemsByCategoryQuery()
+    {
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<GetMenuItemsByCategoryQuery>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(Result.Create<IList<MenuItemResponse>>(null));
+
+        _ = await _controller.GetByCategory("category", default);
+
+        _senderMock.Verify(
+            x => x.Send(It.IsAny<GetMenuItemsByCategoryQuery>(), It.IsAny<CancellationToken>()),
+            Times.Once());
+    }
+
+    [Fact]
+    async Task GetByCategory_Should_ReturnOkWhenResponseIsSuccessful()
+    {
+        IList<MenuItemResponse> result = new List<MenuItemResponse>();
+
+        _senderMock.Setup(
+            x => x.Send(
+                It.IsAny<GetMenuItemsByCategoryQuery>(),
+                It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                Result.Success(result));
+
+        var response = await _controller.GetByCategory("category", default);
 
         response.Should().BeOfType<OkObjectResult>();
     }

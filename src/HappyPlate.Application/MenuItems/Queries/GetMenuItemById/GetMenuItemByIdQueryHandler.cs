@@ -3,7 +3,7 @@ using HappyPlate.Domain.Errors;
 using HappyPlate.Domain.Repositories;
 using HappyPlate.Domain.Shared;
 
-namespace HappyPlate.Application.MenuItems.GetMenuItemById;
+namespace HappyPlate.Application.MenuItems.Queries.GetMenuItemById;
 public sealed class GetMenuItemByIdQueryHandler
     : IQueryHandler<GetMenuItemByIdQuery, MenuItemResponse>
 {

@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.GetMenuItemById;
+﻿using HappyPlate.Application.MenuItems.Queries.GetMenuItemById;
 using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.UnitTests.MenuItems.Queries;

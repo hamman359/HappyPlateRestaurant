@@ -2,22 +2,25 @@
 using HappyPlate.Domain.Repositories;
 using HappyPlate.Domain.Shared;
 
-namespace HappyPlate.Application.MenuItems.GetAllMenuItems;
-public sealed class GetAllMenuItemsQueryHandler
-    : IQueryHandler<GetAllMenuItemsQuery, IList<MenuItemResponse>>
+namespace HappyPlate.Application.MenuItems.Queries.GetMenuItemsByCategory;
+
+public sealed class GetMenuItemsByCategoryQueryHandler
+    : IQueryHandler<GetMenuItemsByCategoryQuery, IList<MenuItemResponse>>
 {
     readonly IMenuItemRepository _menuItemRepository;
 
-    public GetAllMenuItemsQueryHandler(IMenuItemRepository menuItemRepository)
+    public GetMenuItemsByCategoryQueryHandler(IMenuItemRepository menuItemRepository)
     {
         _menuItemRepository = menuItemRepository;
     }
 
     public async Task<Result<IList<MenuItemResponse>>> Handle(
-        GetAllMenuItemsQuery request,
+        GetMenuItemsByCategoryQuery request,
         CancellationToken cancellationToken)
     {
-        var menuItems = await _menuItemRepository.GetAllAsync(cancellationToken);
+        var menuItems = await _menuItemRepository.GetByCategoryAsync(
+            request.Category,
+            cancellationToken);
 
         var response = menuItems
             .Select(m => new MenuItemResponse(
@@ -31,6 +34,5 @@ public sealed class GetAllMenuItemsQueryHandler
             .ToList();
 
         return response;
-
     }
 }

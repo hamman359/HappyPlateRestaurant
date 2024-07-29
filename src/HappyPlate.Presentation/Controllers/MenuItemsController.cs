@@ -1,4 +1,5 @@
-﻿using HappyPlate.Application.MenuItems.GetAllMenuItems;
+﻿using HappyPlate.Application.MenuItems.Queries.GetAllMenuItems;
+using HappyPlate.Application.MenuItems.Queries.GetMenuItemsByCategory;
 using HappyPlate.Presentation.Abstractions;
 
 using MediatR;
@@ -19,6 +20,23 @@ public sealed class MenuItemsController : ApiController
     public async Task<IActionResult> Get(CancellationToken canellationToken)
     {
         var query = new GetAllMenuItemsQuery();
+
+        var response = await Sender.Send(query, canellationToken);
+
+        if(response.IsFailure)
+        {
+            return HandleFailure(response);
+        }
+
+        return Ok(response.Value);
+    }
+
+    [HttpGet("{category:string}")]
+    public async Task<IActionResult> GetByCategory(
+        string category,
+        CancellationToken canellationToken)
+    {
+        var query = new GetMenuItemsByCategoryQuery(category);
 
         var response = await Sender.Send(query, canellationToken);
 

@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
+﻿using HappyPlate.Application.MenuItems.Commands.ChangeMenuItemPrice;
 using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.ValueObjects;
 

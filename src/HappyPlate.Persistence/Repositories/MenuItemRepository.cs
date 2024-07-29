@@ -33,4 +33,12 @@ internal sealed class MenuItemRepository : IMenuItemRepository
         await _dbContext
             .Set<MenuItem>()
             .ToListAsync(cancellationToken);
+
+    public async Task<IList<MenuItem>> GetByCategoryAsync(
+        string category,
+        CancellationToken cancellationToken) =>
+        await _dbContext
+            .Set<MenuItem>()
+            .Where(x => x.Category == category)
+            .ToListAsync(cancellationToken);
 }

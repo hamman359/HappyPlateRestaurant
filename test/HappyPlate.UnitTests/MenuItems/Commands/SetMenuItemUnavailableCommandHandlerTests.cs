@@ -1,4 +1,4 @@
-﻿using HappyPlate.Application.MenuItems.SetMenuItemUnavailable;
+﻿using HappyPlate.Application.MenuItems.Commands.SetMenuItemUnavailable;
 using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.ValueObjects;
 

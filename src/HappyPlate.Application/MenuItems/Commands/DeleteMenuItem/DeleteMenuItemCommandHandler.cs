@@ -6,7 +6,7 @@ using HappyPlate.Domain.Shared;
 
 using MediatR;
 
-namespace HappyPlate.Application.MenuItems.DeleteMenuItem;
+namespace HappyPlate.Application.MenuItems.Commands.DeleteMenuItem;
 
 public sealed class DeleteMenuItemCommandHandler
     : ICommandHandler<DeleteMenuItemCommand, bool>
@@ -31,7 +31,7 @@ public sealed class DeleteMenuItemCommandHandler
     {
         var menuItem = await _menuItemRepository.GetByIdAsync(request.MenuItemId, cancellationToken);
 
-        if(menuItem is null)
+        if (menuItem is null)
         {
             return Result.Failure<bool>(DomainErrors.MenuItem.NotFound(request.MenuItemId));
         }

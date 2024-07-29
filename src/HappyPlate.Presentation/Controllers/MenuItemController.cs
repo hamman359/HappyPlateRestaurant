@@ -1,10 +1,10 @@
 ﻿using HappyPlate.Application.MenuItems;
-using HappyPlate.Application.MenuItems.AddMenuItem;
-using HappyPlate.Application.MenuItems.ChangeMenuItemPrice;
-using HappyPlate.Application.MenuItems.DeleteMenuItem;
-using HappyPlate.Application.MenuItems.GetMenuItemById;
-using HappyPlate.Application.MenuItems.SetMenuItemAvailable;
-using HappyPlate.Application.MenuItems.SetMenuItemUnavailable;
+using HappyPlate.Application.MenuItems.Commands.AddMenuItem;
+using HappyPlate.Application.MenuItems.Commands.ChangeMenuItemPrice;
+using HappyPlate.Application.MenuItems.Commands.DeleteMenuItem;
+using HappyPlate.Application.MenuItems.Commands.SetMenuItemAvailable;
+using HappyPlate.Application.MenuItems.Commands.SetMenuItemUnavailable;
+using HappyPlate.Application.MenuItems.Queries.GetMenuItemById;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
 using HappyPlate.Presentation.Contracts.MenuItems;
