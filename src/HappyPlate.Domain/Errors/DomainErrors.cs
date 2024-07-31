@@ -134,4 +134,12 @@ public static class DomainErrors
             "PhoneNumber.LineNumberInvalidLength",
             "Phone Number Line Number must be exactly 4 digits long");
     }
+
+    public static class ZipCode
+    {
+        public static readonly Error Invalid = new(
+            "ZipCode.Invalid",
+            "Zip Code is not valid");
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using HappyPlate.Domain.Primatives;
+using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Domain.Entities;
 
@@ -8,9 +9,9 @@ public sealed class Address : Entity
         string street,
         string city,
         string state,
-        string zipCode,
+        ZipCode zipCode,
         string country,
-        string type)
+        AddressType type)
     {
         Street = street;
         City = city;
@@ -26,19 +27,19 @@ public sealed class Address : Entity
 
     public string State { get; private set; }
 
-    public string ZipCode { get; private set; }
+    public ZipCode ZipCode { get; private set; }
 
     public string Country { get; private set; }
 
-    public string Type { get; private set; }
+    public AddressType Type { get; private set; }
 
     public static Address Create(
         string street,
         string city,
         string state,
-        string zipCode,
+        ZipCode zipCode,
         string country,
-        string type)
+        AddressType type)
     {
         return new(
             street,
