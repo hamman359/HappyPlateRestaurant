@@ -1,6 +1,6 @@
 ﻿using HappyPlate.Domain.Primatives;
 
-namespace HappyPlate.Domain.Entities;
+namespace HappyPlate.Domain.Enums;
 
 public sealed class AddressType : Enumeration<AddressType>
 {

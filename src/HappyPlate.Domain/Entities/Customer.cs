@@ -5,6 +5,8 @@ namespace HappyPlate.Domain.Entities;
 
 public sealed class Customer : AggregateRoot
 {
+    private readonly List<Address> _addresses = new();
+
     Customer(
         FirstName firstName,
         LastName lastName,
@@ -16,7 +18,11 @@ public sealed class Customer : AggregateRoot
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
-        Addresses = addresses;
+        _addresses.AddRange(addresses);
+    }
+
+    Customer()
+    {
     }
 
     public FirstName FirstName { get; private set; }
@@ -27,7 +33,7 @@ public sealed class Customer : AggregateRoot
 
     public PhoneNumber PhoneNumber { get; private set; }
 
-    public IList<Address> Addresses { get; private set; }
+    public IReadOnlyCollection<Address> Addresses => _addresses;
 
     public static Customer Create(
         FirstName firstName,

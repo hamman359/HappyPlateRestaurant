@@ -1,4 +1,5 @@
-﻿using HappyPlate.Domain.Primatives;
+﻿using HappyPlate.Domain.Enums;
+using HappyPlate.Domain.Primatives;
 using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Domain.Entities;
@@ -19,6 +20,10 @@ public sealed class Address : Entity
         ZipCode = zipCode;
         Country = country;
         Type = type;
+    }
+
+    Address()
+    {
     }
 
     public string Street { get; private set; }

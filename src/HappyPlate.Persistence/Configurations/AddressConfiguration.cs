@@ -1,4 +1,5 @@
 ﻿using HappyPlate.Domain.Entities;
+using HappyPlate.Domain.Enums;
 using HappyPlate.Domain.ValueObjects;
 using HappyPlate.Persistence.Constants;
 
