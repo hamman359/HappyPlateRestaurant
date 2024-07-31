@@ -52,7 +52,6 @@ public sealed class Address : Entity
             state,
             zipCode,
             country,
-            type
-            );
+            type);
     }
 }

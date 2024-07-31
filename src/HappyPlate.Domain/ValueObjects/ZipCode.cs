@@ -10,7 +10,7 @@ namespace HappyPlate.Domain.ValueObjects;
 public sealed class ZipCode : ValueObject
 {
     [StringSyntax(StringSyntaxAttribute.Regex)]
-    const string regexPattern = "^\\d{5}(?:[-\\s]?\\d{4})?";
+    const string regexPattern = @"^\d{5}(?:[-\s]?\d{4})?$";
 
     public string Value { get; set; }
 
@@ -21,7 +21,7 @@ public sealed class ZipCode : ValueObject
 
     public static Result<ZipCode> Create(string value)
     {
-        var regex = new Regex(regexPattern, RegexOptions.Compiled);
+        var regex = new Regex(regexPattern);
 
         if(!regex.IsMatch(value))
         {

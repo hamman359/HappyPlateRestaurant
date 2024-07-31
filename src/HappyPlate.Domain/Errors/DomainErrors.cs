@@ -95,7 +95,12 @@ public static class DomainErrors
             "MenuItemName.Empty",
             "Menu Item name is empty");
 
+        public readonly static Error TooLong = new(
+            "MenuItemName.TooLong",
+            "MenuItem name is too long");
+
     }
+
     public static class PhoneNumber
     {
         public static readonly Error AreaCodeEmpty = new(
