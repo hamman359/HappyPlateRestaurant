@@ -8,7 +8,7 @@ public sealed class Address : Entity
     Address(
         string street,
         string city,
-        string state,
+        State state,
         ZipCode zipCode,
         string country,
         AddressType type)
@@ -25,7 +25,7 @@ public sealed class Address : Entity
 
     public string City { get; private set; }
 
-    public string State { get; private set; }
+    public State State { get; private set; }
 
     public ZipCode ZipCode { get; private set; }
 
@@ -36,7 +36,7 @@ public sealed class Address : Entity
     public static Address Create(
         string street,
         string city,
-        string state,
+        State state,
         ZipCode zipCode,
         string country,
         AddressType type)
@@ -47,6 +47,7 @@ public sealed class Address : Entity
             state,
             zipCode,
             country,
-            type);
+            type
+            );
     }
 }

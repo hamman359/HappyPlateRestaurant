@@ -10,13 +10,13 @@ public sealed class Customer : AggregateRoot
         LastName lastName,
         Email email,
         PhoneNumber phoneNumber,
-        Address address)
+        IList<Address> addresses)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
-        Address = address;
+        Addresses = addresses;
     }
 
     public FirstName FirstName { get; private set; }
@@ -27,20 +27,20 @@ public sealed class Customer : AggregateRoot
 
     public PhoneNumber PhoneNumber { get; private set; }
 
-    public Address Address { get; private set; }
+    public IList<Address> Addresses { get; private set; }
 
     public static Customer Create(
         FirstName firstName,
         LastName lastName,
         Email email,
         PhoneNumber phoneNumber,
-        Address address)
+        IList<Address> addresses)
     {
         return new(
             firstName,
             lastName,
             email,
             phoneNumber,
-            address);
+            addresses);
     }
 }

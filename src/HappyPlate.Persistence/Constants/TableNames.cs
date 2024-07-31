@@ -7,4 +7,8 @@ internal static class TableNames
     internal const string OutboxMessageConsumers = nameof(OutboxMessageConsumers);
 
     internal const string MenuItem = nameof(MenuItem);
+
+    internal const string Address = nameof(Address);
+
+    internal const string Customer = nameof(Customer);
 }

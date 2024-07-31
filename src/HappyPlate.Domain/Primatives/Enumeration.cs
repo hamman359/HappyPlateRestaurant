@@ -22,6 +22,21 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     {
         Id = id;
         Name = name;
+        Description = string.Empty;
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Enumeration{TEnum}"/> class.
+    /// </summary>
+    /// <param name="id">The enumeration identifier.</param>
+    /// <param name="name">The enumeration name.</param>
+    /// <param name="description">The enumeration description.</param>
+    protected Enumeration(int id, string name, string description)
+        : this()
+    {
+        Id = id;
+        Name = name;
+        Description = description;
     }
 
     /// <summary>
@@ -30,7 +45,11 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     /// <remarks>
     /// Required for deserialization.
     /// </remarks>
-    protected Enumeration() => Name = string.Empty;
+    protected Enumeration()
+    {
+        Name = string.Empty;
+        Description = string.Empty;
+    }
 
     /// <summary>
     /// Gets the identifier.
@@ -42,14 +61,19 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     /// </summary>
     public string Name { get; protected init; }
 
+    /// <summary>
+    /// Gets the optional description
+    /// </summary>
+    public string Description { get; protected init; }
+
     public static bool operator ==(Enumeration<TEnum>? a, Enumeration<TEnum>? b)
     {
-        if (a is null && b is null)
+        if(a is null && b is null)
         {
             return true;
         }
 
-        if (a is null || b is null)
+        if(a is null || b is null)
         {
             return false;
         }
@@ -80,6 +104,13 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     public static TEnum? FromName(string name) => EnumerationsDictionary.Value.Values.SingleOrDefault(x => x.Name == name);
 
     /// <summary>
+    /// Creates an enumeration of the specified type based on the specified description.
+    /// </summary>
+    /// <param name="description">The enumeration name.</param>
+    /// <returns>The enumeration instance that matches the specified description, if it exists.</returns>
+    public static TEnum? FromDescription(string description) => EnumerationsDictionary.Value.Values.SingleOrDefault(x => x.Description == description);
+
+    /// <summary>
     /// Checks if the enumeration with the specified identifier exists.
     /// </summary>
     /// <param name="id">The enumeration identifier.</param>
@@ -89,7 +120,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     /// <inheritdoc />
     public virtual bool Equals(Enumeration<TEnum>? other)
     {
-        if (other is null)
+        if(other is null)
         {
             return false;
         }
@@ -100,12 +131,12 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     /// <inheritdoc />
     public override bool Equals(object? obj)
     {
-        if (obj is null)
+        if(obj is null)
         {
             return false;
         }
 
-        if (GetType() != obj.GetType())
+        if(GetType() != obj.GetType())
         {
             return false;
         }
