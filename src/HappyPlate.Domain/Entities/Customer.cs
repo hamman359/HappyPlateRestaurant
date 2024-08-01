@@ -48,5 +48,7 @@ public sealed class Customer : AggregateRoot
             email,
             phoneNumber,
             addresses);
+
+
     }
 }

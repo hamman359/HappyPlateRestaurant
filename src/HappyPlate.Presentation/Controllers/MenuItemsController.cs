@@ -31,7 +31,7 @@ public sealed class MenuItemsController : ApiController
         return Ok(response.Value);
     }
 
-    [HttpGet("{category:string}")]
+    [HttpGet("{category}")]
     public async Task<IActionResult> GetByCategory(
         string category,
         CancellationToken canellationToken)

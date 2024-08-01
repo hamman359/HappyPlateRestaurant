@@ -31,14 +31,14 @@ public sealed class AddMenuItemCommandHandler : ICommandHandler<AddMenuItemComma
     {
         Result<Price> priceResult = Price.Create(request.Price);
 
-        if (priceResult.IsFailure)
+        if(priceResult.IsFailure)
         {
             return Result.Failure<Guid>(priceResult.Error);
         }
 
         Result<MenuItemName> menuItemName = MenuItemName.Create(request.Name);
 
-        if (menuItemName.IsFailure)
+        if(menuItemName.IsFailure)
         {
             return Result.Failure<Guid>(menuItemName.Error);
         }

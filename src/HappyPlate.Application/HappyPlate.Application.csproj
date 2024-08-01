@@ -20,4 +20,8 @@
     <ProjectReference Include="..\HappyPlate.Domain\HappyPlate.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Customers\Events\" />
+  </ItemGroup>
+
 </Project>

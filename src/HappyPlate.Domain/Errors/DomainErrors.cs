@@ -4,6 +4,13 @@ namespace HappyPlate.Domain.Errors;
 
 public static class DomainErrors
 {
+    public static class AddressType
+    {
+        public static readonly Error Invalid = new(
+            "AddressType.Invalid",
+            "AddressType is not a valid value");
+    }
+
     public static class Member
     {
         public static readonly Error EmailAlreadyInUse = new(
@@ -156,6 +163,13 @@ public static class DomainErrors
         public static readonly Error StateIsInvalid = new(
             "Address.StateInvalid",
             "State is not valid");
+    }
+
+    public static class State
+    {
+        public static readonly Error Invalid = new(
+            "State.Invalid",
+            "State is not a valid value");
     }
 
 }

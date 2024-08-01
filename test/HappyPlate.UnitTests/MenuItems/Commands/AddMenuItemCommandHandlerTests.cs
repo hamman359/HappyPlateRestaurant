@@ -87,7 +87,7 @@ public class AddMenuItemCommandHandlerTests
     }
 
     [Fact]
-    public async Task Handle_Should_CallUnitOfWork_WhenAllDataIsValid()
+    public async Task Handle_Should_CallUnitOfWorkSaveChangesAsync_WhenAllDataIsValid()
     {
         var command = new AddMenuItemCommand("Product", "Description", 1.0f, "Category", "Image", true);
 
