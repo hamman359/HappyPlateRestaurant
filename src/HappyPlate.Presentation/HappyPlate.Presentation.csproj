@@ -22,4 +22,8 @@
     <ProjectReference Include="..\HappyPlate.Persistence\HappyPlate.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contracts\" />
+  </ItemGroup>
+
 </Project>

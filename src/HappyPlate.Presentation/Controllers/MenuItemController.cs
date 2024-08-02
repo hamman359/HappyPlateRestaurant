@@ -7,7 +7,6 @@ using HappyPlate.Application.MenuItems.Commands.SetMenuItemUnavailable;
 using HappyPlate.Application.MenuItems.Queries.GetMenuItemById;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
-using HappyPlate.Presentation.Contracts.MenuItems;
 
 using MediatR;
 
@@ -39,18 +38,10 @@ public sealed class MenuItemController : ApiController
 
     [HttpPost("Add")]
     public async Task<IActionResult> Add(
-        [FromBody] AddMenuItemRequest request,
+        [FromBody] AddMenuItemCommand request,
         CancellationToken cancelationToken)
     {
-        var command = new AddMenuItemCommand(
-            request.name,
-            request.description,
-            request.price,
-            request.category,
-            request.image,
-            request.isAvailable);
-
-        var result = await Sender.Send(command, cancelationToken);
+        var result = await Sender.Send(request, cancelationToken);
 
         if(result.IsFailure)
         {
@@ -107,15 +98,10 @@ public sealed class MenuItemController : ApiController
 
     [HttpPut("{id:guid}/ChangePrice")]
     public async Task<IActionResult> ChangePrice(
-    Guid id,
-    [FromBody] float price,
+    [FromBody] ChangeMenuItemPriceCommand request,
     CancellationToken cancelationToken)
     {
-        var command = new ChangeMenuItemPriceCommand(
-            id,
-            price);
-
-        Result<Guid> result = await Sender.Send(command, cancelationToken);
+        Result<Guid> result = await Sender.Send(request, cancelationToken);
 
         if(result.IsFailure)
         {

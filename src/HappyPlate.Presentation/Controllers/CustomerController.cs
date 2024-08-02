@@ -1,6 +1,5 @@
 ﻿using HappyPlate.Application.Customers.Commands.AddCustomer;
 using HappyPlate.Presentation.Abstractions;
-using HappyPlate.Presentation.Contracts.Customers;
 
 using MediatR;
 
@@ -26,28 +25,10 @@ public sealed class CustomerController : ApiController
 
     [HttpPost("Add")]
     public async Task<IActionResult> Add(
-        [FromBody] AddCustomerRequest request,
+        [FromBody] AddCustomerCommand request,
         CancellationToken cancellationToken)
     {
-        var command = new AddCustomerCommand(
-            request.firstName,
-            request.lastName,
-            request.email,
-            request.areaCode,
-            request.prefix,
-            request.lineNumber,
-            request.extension,
-            request.addresses
-                .Select(x => new AddressDto(
-                    x.street,
-                    x.city,
-                    x.state,
-                    x.zipCode,
-                    x.country,
-                    x.addressType))
-                .ToList());
-
-        var result = await Sender.Send(command, cancellationToken);
+        var result = await Sender.Send(request, cancellationToken);
 
         if(result.IsFailure)
         {

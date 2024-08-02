@@ -6,7 +6,6 @@ using HappyPlate.Application.MenuItems.Commands.SetMenuItemAvailable;
 using HappyPlate.Application.MenuItems.Commands.SetMenuItemUnavailable;
 using HappyPlate.Application.MenuItems.Queries.GetMenuItemById;
 using HappyPlate.Domain.Shared;
-using HappyPlate.Presentation.Contracts.MenuItems;
 using HappyPlate.Presentation.Controllers;
 
 using MediatR;
@@ -90,7 +89,7 @@ public class MenuItemControllerTests
             .ReturnsAsync(Result.Success(Guid.NewGuid()));
 
         _ = await _controller.Add(
-            new AddMenuItemRequest(
+            new AddMenuItemCommand(
                 string.Empty,
                 string.Empty,
                 1.0f,
@@ -114,7 +113,7 @@ public class MenuItemControllerTests
             .ReturnsAsync(Result.Success(Guid.NewGuid()));
 
         var response = await _controller.Add(
-            new AddMenuItemRequest(
+            new AddMenuItemCommand(
                 string.Empty,
                 string.Empty,
                 1.0f,
@@ -136,7 +135,7 @@ public class MenuItemControllerTests
             .ReturnsAsync(Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(Guid.NewGuid())));
 
         var response = await _controller.Add(
-            new AddMenuItemRequest(
+            new AddMenuItemCommand(
                 string.Empty,
                 string.Empty,
                 1.0f,
@@ -300,7 +299,9 @@ public class MenuItemControllerTests
                 It.IsAny<CancellationToken>()))
             .ReturnsAsync(Result.Success(Guid.NewGuid()));
 
-        _ = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
+        _ = await _controller.ChangePrice(
+            new ChangeMenuItemPriceCommand(Guid.NewGuid(), 1.0f),
+            default);
 
         _senderMock.Verify(
             x => x.Send(It.IsAny<ChangeMenuItemPriceCommand>(), It.IsAny<CancellationToken>()),
@@ -318,7 +319,9 @@ public class MenuItemControllerTests
             .ReturnsAsync(
                 Result.Success(Guid.NewGuid()));
 
-        var response = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
+        var response = await _controller.ChangePrice(
+            new ChangeMenuItemPriceCommand(Guid.NewGuid(), 1.0f),
+            default);
 
         response.Should().BeOfType<OkResult>();
     }
@@ -333,7 +336,9 @@ public class MenuItemControllerTests
             .ReturnsAsync(
                 Result.Failure<Guid>(DomainErrors.MenuItem.NotFound(Guid.NewGuid())));
 
-        var response = await _controller.ChangePrice(Guid.NewGuid(), 1.0f, default);
+        var response = await _controller.ChangePrice(
+            new ChangeMenuItemPriceCommand(Guid.NewGuid(), 1.0f),
+            default);
 
         //TODO: Update and fix
         response.Should().BeOfType<BadRequestObjectResult>();
@@ -349,7 +354,9 @@ public class MenuItemControllerTests
             .ReturnsAsync(
                 Result.Failure<Guid>(DomainErrors.Price.Negative));
 
-        var response = await _controller.ChangePrice(Guid.NewGuid(), -1.0f, default);
+        var response = await _controller.ChangePrice(
+            new ChangeMenuItemPriceCommand(Guid.NewGuid(), -1.0f),
+            default);
 
         response.Should().BeOfType<BadRequestObjectResult>();
     }
