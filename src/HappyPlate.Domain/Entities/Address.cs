@@ -26,6 +26,8 @@ public sealed class Address : Entity
     {
     }
 
+    public Guid CustomerId { get; private set; }
+
     public string Street { get; private set; }
 
     public string City { get; private set; }

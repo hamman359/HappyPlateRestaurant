@@ -1,5 +1,8 @@
 ﻿using HappyPlate.Domain.Entities;
 using HappyPlate.Domain.Repositories;
+using HappyPlate.Persistence.Specifications;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace HappyPlate.Persistence.Repositories;
 
@@ -18,4 +21,18 @@ public sealed class CustomerRepository
         _dbContext
             .Set<Customer>()
             .Add(customer);
+
+    public async Task<Customer?> GetByIdAsync(
+        Guid customerId,
+        CancellationToken cancellationToken) =>
+            await ApplySpecification(new CustomerByIdWithAddressesSpecification(customerId))
+                .FirstOrDefaultAsync();
+
+    IQueryable<Customer> ApplySpecification(
+        Specification<Customer> specification)
+    {
+        return SpecificationEvaluator.GetQuery(
+            _dbContext.Set<Customer>(),
+            specification);
+    }
 }

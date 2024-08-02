@@ -1,4 +1,5 @@
 ﻿using HappyPlate.Application.Customers.Commands.AddCustomer;
+using HappyPlate.Application.Customers.Queries;
 using HappyPlate.Presentation.Abstractions;
 
 using MediatR;
@@ -20,7 +21,11 @@ public sealed class CustomerController : ApiController
         Guid id,
         CancellationToken cancellationToken)
     {
-        return Ok();
+        var response = await Sender.Send(new GetCustomerByIdQuery(id), cancellationToken);
+
+        return response.IsSuccess
+            ? Ok(response.Value)
+            : NotFound(response.Error);
     }
 
     [HttpPost("Add")]

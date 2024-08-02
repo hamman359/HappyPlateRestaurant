@@ -172,4 +172,10 @@ public static class DomainErrors
             "State is not a valid value");
     }
 
+    public static class Customer
+    {
+        public static readonly Func<Guid, NotFoundError> NotFound = id => new NotFoundError(
+            "Customer.NotFound",
+            $"The Customer with Id {id} was not found");
+    }
 }

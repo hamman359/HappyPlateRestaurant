@@ -41,6 +41,6 @@ internal sealed class CustomerConfiguration
         builder
             .HasMany(x => x.Addresses)
             .WithOne()
-            .HasForeignKey(x => x.Id);
+            .HasForeignKey(x => x.CustomerId);
     }
 }
