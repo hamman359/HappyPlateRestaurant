@@ -50,10 +50,10 @@ public sealed class CustomerController : ApiController
 
     [HttpPost("{id:guid}/Delete")]
     public async Task<IActionResult> Delete(
-        DeleteCustomerCommand request,
+        Guid customerId,
         CancellationToken cancellationToken)
     {
-        Result<bool> response = await Sender.Send(request, cancellationToken);
+        Result<bool> response = await Sender.Send(new DeleteCustomerCommand(customerId), cancellationToken);
 
         return response.IsSuccess
             ? Ok()

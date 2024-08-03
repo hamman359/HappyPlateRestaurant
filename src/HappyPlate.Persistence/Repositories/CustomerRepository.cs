@@ -25,7 +25,7 @@ public sealed class CustomerRepository
     public async Task<Customer?> GetByIdAsync(
         Guid customerId,
         CancellationToken cancellationToken) =>
-            _dbContext
+            await _dbContext
                 .Set<Customer>()
                 .Include(x => x.Addresses)
                 .FirstOrDefaultAsync(x => x.Id == customerId);
