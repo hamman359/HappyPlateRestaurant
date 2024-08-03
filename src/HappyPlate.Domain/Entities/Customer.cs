@@ -1,4 +1,6 @@
-﻿using HappyPlate.Domain.Primatives;
+﻿using HappyPlate.Domain.DomainEvents;
+
+using HappyPlate.Domain.Primatives;
 using HappyPlate.Domain.ValueObjects;
 
 namespace HappyPlate.Domain.Entities;
@@ -42,13 +44,20 @@ public sealed class Customer : AggregateRoot
         PhoneNumber phoneNumber,
         IList<Address> addresses)
     {
-        return new(
+        Customer customer = new(
             firstName,
             lastName,
             email,
             phoneNumber,
             addresses);
 
+        var customerCreatedEvent = new CustomerCreatedDomainEvent(
+            customer.Id,
+            customer.Addresses.Select(x => x.Id).ToList());
+
+        customer.RaiseDomainEvent(customerCreatedEvent);
+
+        return customer;
 
     }
 }

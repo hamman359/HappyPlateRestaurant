@@ -1,13 +1,10 @@
 ﻿using HappyPlate.Application.Abstractions.Messaging;
-using HappyPlate.Domain.DomainEvents;
 using HappyPlate.Domain.Entities;
 using HappyPlate.Domain.Enums;
 using HappyPlate.Domain.Errors;
 using HappyPlate.Domain.Repositories;
 using HappyPlate.Domain.Shared;
 using HappyPlate.Domain.ValueObjects;
-
-using MediatR;
 
 namespace HappyPlate.Application.Customers.Commands.AddCustomer;
 
@@ -16,16 +13,13 @@ public sealed class AddCustomerCommandHandler
 {
     readonly ICustomerRepository _customerRepository;
     readonly IUnitOfWork _unitOfWork;
-    readonly IPublisher _publisher;
 
     public AddCustomerCommandHandler(
         ICustomerRepository customerRepository,
-        IUnitOfWork unitOfWork,
-        IPublisher publisher)
+        IUnitOfWork unitOfWork)
     {
         _customerRepository = customerRepository;
         _unitOfWork = unitOfWork;
-        _publisher = publisher;
     }
 
     public async Task<Result<Guid>> Handle(
@@ -109,16 +103,6 @@ public sealed class AddCustomerCommandHandler
         _customerRepository.Add(customer);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-        var customerCreatedEvent = new CustomerCreatedDomainEvent(
-            customer.Id,
-            customer.FirstName.Value,
-            customer.LastName.Value,
-            customer.Email.Value,
-            customer.PhoneNumber.Number,
-            customer.Addresses.Select(x => x.Id).ToList());
-
-        await _publisher.Publish(customerCreatedEvent, cancellationToken);
 
         return customer.Id;
     }
