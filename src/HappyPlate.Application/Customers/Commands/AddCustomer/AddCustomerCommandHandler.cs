@@ -115,7 +115,8 @@ public sealed class AddCustomerCommandHandler
             customer.FirstName.Value,
             customer.LastName.Value,
             customer.Email.Value,
-            customer.PhoneNumber.Number);
+            customer.PhoneNumber.Number,
+            customer.Addresses.Select(x => x.Id).ToList());
 
         await _publisher.Publish(customerCreatedEvent, cancellationToken);
 

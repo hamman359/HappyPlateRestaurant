@@ -1,9 +1,9 @@
 ﻿namespace HappyPlate.Domain.DomainEvents;
 
-public record CustomerCreatedDomainEvent(
+public record CustomerDeletedDomainEvent(
     Guid Id,
     string FirstName,
     string LastName,
-    string Email,
     string PhoneNumber,
-    IEnumerable<Guid> AddressIds) : DomainEvent(Id);
+    string Email,
+    IList<Guid> AddressIds) : DomainEvent(Id);

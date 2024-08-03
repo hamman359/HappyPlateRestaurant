@@ -1,5 +1,7 @@
 ﻿using HappyPlate.Application.Customers.Commands.AddCustomer;
+using HappyPlate.Application.Customers.Commands.DeleteCustomer;
 using HappyPlate.Application.Customers.Queries;
+using HappyPlate.Domain.Shared;
 using HappyPlate.Presentation.Abstractions;
 
 using MediatR;
@@ -44,5 +46,17 @@ public sealed class CustomerController : ApiController
             nameof(GetById),
             new { id = result.Value },
             result.Value);
+    }
+
+    [HttpPost("{id:guid}/Delete")]
+    public async Task<IActionResult> Delete(
+        DeleteCustomerCommand request,
+        CancellationToken cancellationToken)
+    {
+        Result<bool> response = await Sender.Send(request, cancellationToken);
+
+        return response.IsSuccess
+            ? Ok()
+            : NotFound(response.Error);
     }
 }

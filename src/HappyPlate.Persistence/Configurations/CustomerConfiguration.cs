@@ -41,6 +41,7 @@ internal sealed class CustomerConfiguration
         builder
             .HasMany(x => x.Addresses)
             .WithOne()
-            .HasForeignKey(x => x.CustomerId);
+            .HasForeignKey(x => x.CustomerId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -25,8 +25,12 @@ public sealed class CustomerRepository
     public async Task<Customer?> GetByIdAsync(
         Guid customerId,
         CancellationToken cancellationToken) =>
-            await ApplySpecification(new CustomerByIdWithAddressesSpecification(customerId))
-                .FirstOrDefaultAsync();
+            _dbContext
+                .Set<Customer>()
+                .Include(x => x.Addresses)
+                .FirstOrDefaultAsync(x => x.Id == customerId);
+    //await ApplySpecification(new CustomerByIdWithAddressesSpecification(customerId))
+    //    .FirstOrDefaultAsync();
 
     IQueryable<Customer> ApplySpecification(
         Specification<Customer> specification)
@@ -35,4 +39,9 @@ public sealed class CustomerRepository
             _dbContext.Set<Customer>(),
             specification);
     }
+
+    public void Remove(Customer customer) =>
+        _dbContext
+            .Set<Customer>()
+            .Remove(customer);
 }

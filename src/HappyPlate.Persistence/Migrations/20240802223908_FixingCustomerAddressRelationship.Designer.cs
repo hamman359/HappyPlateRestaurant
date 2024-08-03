@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HappyPlate.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240802025905_FixingCustomerAddressRelationship")]
+    [Migration("20240802223908_FixingCustomerAddressRelationship")]
     partial class FixingCustomerAddressRelationship
     {
         /// <inheritdoc />
