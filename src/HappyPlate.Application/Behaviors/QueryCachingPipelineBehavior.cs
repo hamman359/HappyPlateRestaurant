@@ -6,6 +6,10 @@ using MediatR;
 
 namespace HappyPlate.Application.Behaviors;
 
+/// <summary>
+/// Defines a MediatR pipeline behavior for handling the Caching of Queries
+/// Has Type Constraints to ensure TRequest is an ICachedQuery and that TResponse is a Result.
+/// </summary>
 public sealed class QueryCachingPipelineBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICachedQuery
@@ -18,6 +22,11 @@ public sealed class QueryCachingPipelineBehavior<TRequest, TResponse>
         _cacheService = cacheService;
     }
 
+    /// <summary>
+    /// Checks if the requested data is already cached.
+    /// If so, then returns the cached version.
+    /// Otherwise, adds the data to the cache.
+    /// </summary>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,

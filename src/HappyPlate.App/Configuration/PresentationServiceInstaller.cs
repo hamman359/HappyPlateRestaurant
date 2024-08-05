@@ -8,6 +8,9 @@ public class PresentationServiceInstaller : IServiceInstaller
             .AddControllers()
             .AddApplicationPart(Presentation.AssemblyReference.Assembly);
 
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(c =>
+        {
+            c.EnableAnnotations();
+        });
     }
 }

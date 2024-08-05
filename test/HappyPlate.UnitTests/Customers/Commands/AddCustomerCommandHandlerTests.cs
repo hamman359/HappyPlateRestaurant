@@ -1,7 +1,4 @@
 ﻿using HappyPlate.Application.Customers.Commands.AddCustomer;
-using HappyPlate.Domain.DomainEvents;
-
-using MediatR;
 
 namespace HappyPlate.UnitTests.Customers.Commands;
 
@@ -9,13 +6,11 @@ public class AddCustomerCommandHandlerTests
 {
     readonly Mock<ICustomerRepository> _customerRepositoryMock;
     readonly Mock<IUnitOfWork> _unitOfWorkMock;
-    readonly Mock<IPublisher> _publisherMock;
 
     public AddCustomerCommandHandlerTests()
     {
         _customerRepositoryMock = new();
         _unitOfWorkMock = new();
-        _publisherMock = new();
     }
 
     [Fact]
@@ -33,8 +28,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -57,8 +51,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -82,8 +75,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -106,8 +98,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -131,8 +122,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -155,8 +145,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -179,8 +168,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -203,8 +191,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -229,8 +216,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -255,8 +241,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -279,8 +264,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -306,8 +290,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -332,8 +315,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -356,8 +338,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -382,8 +363,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -408,8 +388,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -441,8 +420,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -474,8 +452,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -507,8 +484,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -540,8 +516,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         var result = await handler.Handle(command, default);
 
@@ -572,8 +547,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         _ = await handler.Handle(command, default);
 
@@ -606,48 +580,13 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         _ = await handler.Handle(command, default);
 
         _unitOfWorkMock.Verify(
             x => x.SaveChangesAsync(It.IsAny<CancellationToken>()),
             Times.Once);
-    }
-
-    [Fact]
-    public async Task Handle_ShouldNot_PublishCustomerCreated_WhenRequestDataIsInvalid()
-    {
-        var command = new AddCustomerCommand(
-            string.Empty,
-            "LastName",
-            "test@email.com",
-            "123",
-            "456",
-            "7890",
-            null,
-            new List<AddressDto>
-            {
-                new AddressDto(
-                    "Street",
-                    "City",
-                    "OH",
-                    "12345",
-                    "Country",
-                    "Home")
-            });
-
-        var handler = new AddCustomerCommandHandler(
-            _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
-
-        _ = await handler.Handle(command, default);
-
-        _publisherMock.Verify(
-            x => x.Publish(It.IsAny<CustomerCreatedDomainEvent>(), It.IsAny<CancellationToken>()),
-            Times.Never);
     }
 
     [Fact]
@@ -674,8 +613,7 @@ public class AddCustomerCommandHandlerTests
 
         var handler = new AddCustomerCommandHandler(
             _customerRepositoryMock.Object,
-            _unitOfWorkMock.Object,
-            _publisherMock.Object);
+            _unitOfWorkMock.Object);
 
         _ = await handler.Handle(command, default);
 

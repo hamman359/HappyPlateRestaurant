@@ -6,6 +6,10 @@ using Microsoft.Extensions.Logging;
 
 namespace HappyPlate.Application.Behaviors;
 
+/// <summary>
+/// Defines a MediatR pipeline behavior for logging requests that come through MediatR.
+/// Has Type Constraints to ensure TRequest is an IRequest<> and that TResponse is a Result.
+/// </summary>
 public class LoggingPipelineBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
@@ -18,6 +22,10 @@ public class LoggingPipelineBehavior<TRequest, TResponse>
         _logger = logger;
     }
 
+    /// <summary>
+    /// Logs when a request started and when it finished.
+    /// If the request returned a failure response this is also logged.
+    /// </summary>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,

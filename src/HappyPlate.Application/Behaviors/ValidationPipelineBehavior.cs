@@ -6,6 +6,10 @@ using MediatR;
 
 namespace HappyPlate.Application.Behaviors;
 
+/// <summary>
+/// Defines a MediatR pipeline behavior for performing input validation of requests that come through MediatR.
+/// Has Type Constraints to ensure TRequest is an IRequest<> and that TResponse is a Result.
+/// </summary>
 public class ValidationPipelineBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
@@ -16,6 +20,12 @@ public class ValidationPipelineBehavior<TRequest, TResponse>
     public ValidationPipelineBehavior(IEnumerable<IValidator<TRequest>> validators) =>
         _validators = validators;
 
+    /// <summary>
+    /// Validates the request.
+    /// Ifany errors, returns validation result.
+    /// Otherwise, returns the result of the next() delegate execution.
+    /// Skips the validation if there are not any validators defined.
+    /// </summary>
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,
@@ -43,6 +53,7 @@ public class ValidationPipelineBehavior<TRequest, TResponse>
 
         return await next();
     }
+
 
     private static TResult CreateValidationResult<TResult>(Error[] errors)
         where TResult : Result
